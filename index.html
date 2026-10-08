@@ -1,9 +1,115 @@
-<!doctype html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>원마킹툴 · 프로토타입</title><style>
-:root{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color-scheme:dark;background:#0b1323;color:#e9effc}*{box-sizing:border-box}body{margin:0;background:#0b1323}.app{max-width:470px;margin:auto;padding:15px 13px 40px}header{text-align:center;padding:8px 0 15px}h1{font-size:25px;margin:0 0 5px;letter-spacing:-.8px}.creator{color:#8b9cb6;font-size:11px}.sub{color:#9aaac3;font-size:12px;margin-top:7px}.card{background:#172237;border:1px solid #283751;border-radius:16px;padding:14px;margin-bottom:10px}.head{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:800;margin-bottom:10px}.num{background:#273958;color:#bed8ff;border-radius:7px;font-weight:700;padding:3px 7px;font-size:11px}.line{display:flex;gap:8px}.field{flex:1;min-width:0}.field label{font-size:11px;color:#a7b9d2;display:block;margin-bottom:6px}input{width:100%;color:#fff;background:#0d182b;border:1px solid #40516a;padding:11px 9px;border-radius:9px;font-size:17px;font-weight:700;outline:none}input:focus{border-color:#4a9dff}small{font-size:11px;color:#9db0ca}.hint{font-size:12px;color:#bac9e0;line-height:1.5;margin-top:8px}.warning{border-radius:11px;background:#483420;border:1px solid #8e6636;color:#ffdbad;padding:10px 11px;font-size:12px;margin:12px 0 0}.good{background:#1b4037;border-color:#32745d;color:#a4ead0}.mode-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.mode{padding:10px 3px;background:#0d182b;color:#b8c9e1;border:1px solid #3a4a66;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer}.mode.active{background:#165d9e;border-color:#65b7ff;color:white}.split{display:flex;gap:6px;margin-top:9px}.split button{flex:1;padding:8px 3px;border:1px solid #3b4c66;background:#0d182b;color:#b6c9e1;border-radius:8px;font-size:12px}.split button.active{background:#284c7c;border-color:#71adf0;color:white}.mark{display:grid;grid-template-columns:45px 1fr 78px;gap:9px;align-items:center;padding:9px 3px;border-bottom:1px solid #2b3c55}.mark:last-child{border-bottom:0}.pill{border-radius:8px;background:#2e4361;text-align:center;padding:7px 3px;font-size:12px;font-weight:700}.pos{font-size:22px;font-weight:800;letter-spacing:-.4px}.kind{text-align:right;font-size:12px;color:#b2c4db}.cut{background:#102c26;border-radius:9px;margin-top:8px;padding:9px 7px;border-bottom:0}.cut .pill{background:#176653}.cut .pos{color:#65e0b4}.muted{color:#8e9fb9;font-size:11px}.mainval{font-size:25px;font-weight:900;color:#8ac9ff}.math{display:grid;grid-template-columns:1fr 1fr;gap:6px}.stat{background:#0d182b;border-radius:8px;padding:10px}.stat strong{display:block;font-size:17px;margin-top:3px}.footer{font-size:11px;line-height:1.6;color:#8d9eb7;margin-top:10px}button{touch-action:manipulation} @media(min-width:650px){.app{margin:28px auto}.card{box-shadow:0 14px 36px #0002}} </style><style id="multi-style">.short-card{background:#0d182b;border:1px solid #38506b;border-radius:12px;padding:12px;margin-top:10px}.short-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.short-top strong{font-size:14px}.short-top .num{background:#554027;color:#ffe0ab}.angleline{margin-top:12px;align-items:flex-end}.anglebox{color:#8ac9ff;font-size:20px;font-weight:800;padding-bottom:7px}.segline{font-size:12px;padding:8px 0;border-bottom:1px solid #2e3e55;display:flex;justify-content:space-between;gap:8px}.segline:last-child{border:0}.bad{color:#ffb0a5}.ok{color:#a0e5c9}.mode{min-height:46px}.short-card input{font-size:16px}.stat strong{font-size:15px}.note{font-size:12px;line-height:1.45;margin-top:8px;color:#bccce1}</style></head><body><main class="app"><header><h1>원마킹툴</h1><div class="creator">만든사람 이대희</div><div class="sub">도면 치수 → 밴딩 옵션 → 마킹 & 커팅</div></header>
-<section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>완성 도면 치수 (하이픈 구분)</label><input id="dims" value="200-150-50-250-50-300" inputmode="text"></div><div class="hint">예: 200-150-50-250-300</div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
+<!doctype html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>원마킹툴</title><meta name="theme-color" content="#0b1323"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="원마킹툴"><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-180.png"><style>
+:root{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color-scheme:dark;background:#0b1323;color:#e9effc}*{box-sizing:border-box}body{margin:0;background:#0b1323}.app{max-width:470px;margin:auto;padding:15px 13px 40px}header{text-align:center;padding:8px 0 15px}h1{font-size:25px;margin:0 0 5px;letter-spacing:-.8px}.creator{color:#8b9cb6;font-size:11px}.sub{color:#9aaac3;font-size:12px;margin-top:7px}.card{background:#172237;border:1px solid #283751;border-radius:16px;padding:14px;margin-bottom:10px}.head{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:800;margin-bottom:10px}.num{background:#273958;color:#bed8ff;border-radius:7px;font-weight:700;padding:3px 7px;font-size:11px}.line{display:flex;gap:8px}.field{flex:1;min-width:0}.field label{font-size:11px;color:#a7b9d2;display:block;margin-bottom:6px}input{width:100%;color:#fff;background:#0d182b;border:1px solid #40516a;padding:11px 9px;border-radius:9px;font-size:17px;font-weight:700;outline:none}input:focus{border-color:#4a9dff}small{font-size:11px;color:#9db0ca}.hint{font-size:12px;color:#bac9e0;line-height:1.5;margin-top:8px}.warning{border-radius:11px;background:#483420;border:1px solid #8e6636;color:#ffdbad;padding:10px 11px;font-size:12px;margin:12px 0 0}.good{background:#1b4037;border-color:#32745d;color:#a4ead0}.mode-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.mode{padding:10px 3px;background:#0d182b;color:#b8c9e1;border:1px solid #3a4a66;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer}.mode.active{background:#165d9e;border-color:#65b7ff;color:white}.split{display:flex;gap:6px;margin-top:9px}.split button{flex:1;padding:8px 3px;border:1px solid #3b4c66;background:#0d182b;color:#b6c9e1;border-radius:8px;font-size:12px}.split button.active{background:#284c7c;border-color:#71adf0;color:white}.mark{display:grid;grid-template-columns:45px 1fr 78px;gap:9px;align-items:center;padding:9px 3px;border-bottom:1px solid #2b3c55}.mark:last-child{border-bottom:0}.pill{border-radius:8px;background:#2e4361;text-align:center;padding:7px 3px;font-size:12px;font-weight:700}.pos{font-size:22px;font-weight:800;letter-spacing:-.4px}.kind{text-align:right;font-size:12px;color:#b2c4db}.cut{background:#102c26;border-radius:9px;margin-top:8px;padding:9px 7px;border-bottom:0}.cut .pill{background:#176653}.cut .pos{color:#65e0b4}.muted{color:#8e9fb9;font-size:11px}.mainval{font-size:25px;font-weight:900;color:#8ac9ff}.math{display:grid;grid-template-columns:1fr 1fr;gap:6px}.stat{background:#0d182b;border-radius:8px;padding:10px}.stat strong{display:block;font-size:17px;margin-top:3px}.footer{font-size:11px;line-height:1.6;color:#8d9eb7;margin-top:10px}button{touch-action:manipulation} @media(min-width:650px){.app{margin:28px auto}.card{box-shadow:0 14px 36px #0002}} </style><style id="multi-style">.short-card{background:#0d182b;border:1px solid #38506b;border-radius:12px;padding:12px;margin-top:10px}.short-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.short-top strong{font-size:14px}.short-top .num{background:#554027;color:#ffe0ab}.angleline{margin-top:12px;align-items:flex-end}.anglebox{color:#8ac9ff;font-size:20px;font-weight:800;padding-bottom:7px}.segline{font-size:12px;padding:8px 0;border-bottom:1px solid #2e3e55;display:flex;justify-content:space-between;gap:8px}.segline:last-child{border:0}.bad{color:#ffb0a5}.ok{color:#a0e5c9}.mode{min-height:46px}.short-card input{font-size:16px}.stat strong{font-size:15px}.note{font-size:12px;line-height:1.45;margin-top:8px;color:#bccce1}</style><style id="layout-v4">
+/* ① 도면 입력과 ④ 결과를 강조하고 ②·③은 압축 */
+#shortcards .short-card{padding:8px 9px;margin-top:6px;border-radius:9px}
+#shortcards .short-top{margin-bottom:5px}
+#shortcards .short-top strong{font-size:12px}
+#shortcards .mode{min-height:34px;padding:5px 2px;font-size:11px}
+#shortcards .mode-grid{gap:4px}
+#shortcards .angleline{margin-top:6px}
+#shortcards .field label{font-size:10px;margin-bottom:3px}
+#shortcards input{font-size:14px;padding:6px 7px}
+#shortcards .anglebox{font-size:16px;padding-bottom:4px}
+#shortcards .note{font-size:10px;margin-top:4px;line-height:1.3}
+#shortcards .hint{font-size:10px;margin-top:4px}
+#shortcards .split{margin-top:4px}
+#shortcards .split button{padding:5px 2px;font-size:11px}
+#segments .segline{padding:4px 0;font-size:10px}
+#summary{font-size:10px;line-height:1.3;margin-top:0}
+#totalbase,#developed{font-size:12px}
+#totalbase,#developed{margin-top:2px}
+#shortcards .short-card .num{font-size:10px}
+section.card:nth-of-type(2),section.card:nth-of-type(3){padding:9px 10px;margin-bottom:7px}
+section.card:nth-of-type(2) .head,section.card:nth-of-type(3) .head{font-size:12px;margin-bottom:5px}
+section.card:nth-of-type(3) .stat{padding:6px}
+section.card:nth-of-type(3) .math{margin-top:5px!important}
+section.card:first-of-type{border-color:#3c6693}
+section.card:last-of-type{border-color:#397ca4}
+section.card:last-of-type .pos{font-size:23px}
+@media(max-width:480px){.app{padding:9px 9px 25px}header{padding:5px 0 9px}h1{font-size:23px}.card{padding:12px;margin-bottom:8px}}
+</style><style id="original-tab-compact-panels-v5">
+/* Only tab 1 panels 2 and 3 are compressed; panels 1/4 and tab 2 remain unchanged. */
+#originalTab > section.card:nth-of-type(2),
+#originalTab > section.card:nth-of-type(3){padding:7px 9px;margin-bottom:6px;border-radius:11px}
+#originalTab > section.card:nth-of-type(2) .head,
+#originalTab > section.card:nth-of-type(3) .head{font-size:12px;margin-bottom:4px}
+#originalTab #shortcards .short-card{padding:6px 7px;margin-top:5px}
+#originalTab #shortcards .short-top{margin-bottom:4px}
+#originalTab #shortcards .mode{min-height:30px;padding:3px 2px;font-size:10px}
+#originalTab #shortcards .angleline{margin-top:4px}
+#originalTab #shortcards input{padding:5px 6px;font-size:14px}
+#originalTab #shortcards .split button{padding:4px 2px;font-size:10px}
+#originalTab #shortcards .note,#originalTab #shortcards .hint{font-size:10px;line-height:1.2;margin-top:3px}
+#originalTab > section.card:nth-of-type(3) .segline{font-size:10px;padding:4px 0}
+#originalTab > section.card:nth-of-type(3) .hint{font-size:10px;line-height:1.3;margin-top:3px}
+#originalTab > section.card:nth-of-type(3) .math{gap:4px;margin-top:5px!important}
+#originalTab > section.card:nth-of-type(3) .stat{padding:5px}
+#originalTab > section.card:nth-of-type(3) .stat strong{font-size:13px}
+</style></head><body><main class="app"><header><h1>원마킹툴</h1><div class="creator">만든사람 이대희</div><div class="sub">도면 치수 → 밴딩 옵션 → 마킹 & 커팅</div></header>
+<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>완성 도면 치수 (하이픈 구분)</label><input id="dims" value="200-150-50-250-50-300" inputmode="text"></div><div class="hint">예: 200-150-50-250-300</div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
 <section class="card"><div class="head">② 짧은 구간별 밴딩 설정 <span class="num" id="countshort">0개</span></div><div id="shortcards"></div></section>
 <section class="card"><div class="head">③ 전체 차감 & 전개 <span class="num">자동</span></div><div id="summary" class="hint"></div><div id="segments" class="segment-list"></div><div class="math" style="margin-top:9px"><div class="stat"><small>차감 밑변 합계</small><strong id="totalbase">—</strong></div><div class="stat"><small>계산용 전개 길이 합계</small><strong id="developed">—</strong></div></div></section>
-<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div></section><div class="footer">시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></main>
+<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div></section><div class="footer">시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
+<div id="angleTab" hidden>
+<section class="card"><div class="head">① 도면 치수와 지정각</div>
+<div class="field"><label>도면 치수 (예: 300-155-300)</label><input id="adims" value="300-155-300" inputmode="text"></div>
+<div class="line" style="margin-top:10px"><div class="field"><label>R (중심선 반경)</label><input id="aradius" type="number" value="38" step="0.1"></div><div class="field"><label>최소 직관 길이</label><input id="agrip" type="number" value="30" step="0.1"></div></div>
+<div class="hint">도면에 표시된 대각길이는 그대로 입력하세요. 밑변을 수동으로 더하거나 치수를 바꿀 필요가 없습니다.</div>
+<div id="angleInputs"></div></section>
+<section class="card"><div class="head">② 마킹 & 커팅 <span class="num">0점 기준</span></div><div id="angleMarks"></div></section>
+<div class="footer">지정각 탭은 각 구간 치수를 이론상 교점 간 중심선 치수로 해석합니다. 벤더별 마킹 기준과 실제 직관 최소값을 검증한 뒤 작업에 사용하세요.</div>
+</div></main>
+<style>
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:11px}
+.tab{padding:11px 4px;border-radius:10px;background:#172237;color:#aebfda;border:1px solid #344761;font-size:12px;font-weight:800}
+.tab.active{background:#165d9e;color:white;border-color:#65b7ff}
+[hidden]{display:none!important}
+.angle-row{display:grid;grid-template-columns:1fr 110px;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid #304058}
+.angle-row input{font-size:16px;padding:8px}
+</style>
+<script>
+const anglePrefs={};
+function angleRender(){
+ const ds=document.getElementById('adims').value.trim().split(/[-,\\s]+/).filter(Boolean).map(Number);
+ const r=Number(document.getElementById('aradius').value),g=Number(document.getElementById('agrip').value);
+ const panel=document.getElementById('angleInputs'),out=document.getElementById('angleMarks');
+ if(ds.length<2||ds.some(x=>!Number.isFinite(x)||x<=0)||!Number.isFinite(r)||r<=0||!Number.isFinite(g)||g<0){
+  panel.innerHTML='';out.innerHTML='<div class="warning">치수·R·최소 직관 길이를 확인해 주세요.</div>';return;
+ }
+ panel.innerHTML='<div class="hint" style="margin-top:12px">각 밴딩 위치의 각도를 직접 지정 (기본 90°)</div>'+ds.slice(0,-1).map((_,i)=>`<div class="angle-row"><label>${i+1}번 밴딩 · ${i+1}번 / ${i+2}번 구간 사이</label><input type="number" data-bend="${i}" min="0.01" max="179.99" step="0.1" value="${anglePrefs[i]??90}"></div>`).join('');
+ const angles=ds.slice(0,-1).map((_,i)=>Number(anglePrefs[i]??90));
+ const sb=a=>r*Math.tan(a*Math.PI/360),arc=a=>Math.PI*r*a/180;
+ if(angles.some(a=>!Number.isFinite(a)||a<=0||a>=180)){out.innerHTML='<div class="warning">밴딩각은 0° 초과, 180° 미만이어야 합니다.</div>';return;}
+ const bad=[];
+ for(let i=1;i<ds.length-1;i++){
+  const straight=ds[i]-sb(angles[i-1])-sb(angles[i]);
+  if(straight<g-1e-8)bad.push(`${i+1}번 구간 직관 ${straight.toFixed(2)}mm / 최소 ${g.toFixed(2)}mm`);
+ }
+ if(bad.length){out.innerHTML='<div class="warning">⚠ 직관 길이 부족 · 작업 불가<br>'+bad.join('<br>')+'<br>마킹·커팅 출력 중단</div>';return;}
+ let cur=ds[0]-sb(angles[0]),marks=[cur];
+ for(let i=1;i<angles.length;i++){cur+=arc(angles[i-1])+ds[i]-sb(angles[i-1])-sb(angles[i]);marks.push(cur);}
+ const cut=cur+arc(angles.at(-1))+ds.at(-1)-sb(angles.at(-1));
+ if(marks.some((m,i)=>!Number.isFinite(m)||(i>0&&m<=marks[i-1]))||!Number.isFinite(cut)||cut<=marks.at(-1)){
+ out.innerHTML='<div class="warning">⚠ 마킹 간격 오류 · 결과 출력 중단</div>';return;}
+ out.innerHTML=marks.map((m,i)=>`<div class="mark"><div class="pill">${i+1}</div><div class="pos">${m.toFixed(2)} <small>mm</small></div><div class="kind">${angles[i]}° 밴딩</div></div>`).join('')+`<div class="mark cut"><div class="pill">커팅</div><div class="pos">${cut.toFixed(2)} <small>mm</small></div><div class="kind">절단 위치</div></div>`;
+}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+ document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
+ document.getElementById('originalTab').hidden=b.dataset.tab!=='original';
+ document.getElementById('angleTab').hidden=b.dataset.tab!=='angle';
+ if(b.dataset.tab==='angle')angleRender();
+}));
+['adims','aradius','agrip'].forEach(id=>document.getElementById(id).addEventListener('input',angleRender));
+document.getElementById('angleInputs').addEventListener('input',e=>{
+ if(!e.target.matches('[data-bend]'))return;
+ const i=+e.target.dataset.bend;anglePrefs[i]=e.target.value;
+ // Avoid destroying focused input during typing; refresh output on change.
+});
+document.getElementById('angleInputs').addEventListener('change',e=>{
+ if(e.target.matches('[data-bend]')){anglePrefs[+e.target.dataset.bend]=e.target.value;angleRender();}
+});
+angleRender();
+</script>
 <script>
 const el=id=>document.getElementById(id),pi=Math.PI;
 const fmt=(n,d=2)=>Number.isFinite(n)?n.toFixed(d):'—';
@@ -24,7 +130,7 @@ const lens=ds.slice(),angles=Array(ds.length-1).fill(90),deductions=Array(ds.len
 let bad=[],totalbase=0,panels=[];
 shortIndices.forEach((idx,order)=>{
 const cfg=getConfig(idx,order),height=ds[idx],max=maxA(height,r,g,cfg.mode);
-if(cfg.auto)cfg.angle=Math.floor(max*100)/100;
+if(cfg.auto)cfg.angle=Math.floor(max);
 const angle=cfg.angle,angleValid=angle>0&&angle<90&&angle<=max+1e-7;
 const b=height/Math.tan(angle*pi/180),hyp=height/Math.sin(angle*pi/180);
 const front=cfg.mode===2?b:cfg.mode===1?0:cfg.split===0?b:cfg.split===1?0:b/2;
@@ -38,12 +144,23 @@ if(angles._assigned?.has(idx-1)&&Math.abs(angles[idx-1]-aLeft)>1e-7)bad.push(`${
 if(angles._assigned?.has(idx)&&Math.abs(angles[idx]-aRight)>1e-7)bad.push(`${idx+1}번 밴딩 위치에서 인접한 짧은 구간의 각도 설정이 충돌`);
 if(!angles._assigned)angles._assigned=new Set();angles[idx-1]=aLeft;angles[idx]=aRight;angles._assigned.add(idx-1);angles._assigned.add(idx);
 const splitUI=cfg.mode===0?`<div class="hint">밑변 차감 방향</div><div class="split">${[['앞쪽',0],['뒤쪽',1],['50:50',.5]].map(([label,value])=>`<button type="button" data-idx="${idx}" data-split="${value}" class="${cfg.split===value?'active':''}">${label}</button>`).join('')}</div>`:'';
-panels.push(`<div class="short-card"><div class="short-top"><strong>${order+1}번째 짧은 구간 · 도면 ${idx+1}번</strong><span class="num">${fmt(height)} mm</span></div><div class="mode-grid">${['① 예각<br>+ 예각','② 90°<br>+ 예각','③ 예각<br>+ 90°'].map((name,m)=>`<button type="button" class="mode ${cfg.mode===m?'active':''}" data-idx="${idx}" data-mode="${m}">${name}</button>`).join('')}</div>${splitUI}<div class="line angleline"><div class="field"><label>예각(°) · 변경 가능</label><input type="number" inputmode="decimal" min="0.01" max="89.99" step="0.01" data-idx="${idx}" data-angle value="${fmt(angle)}"></div><div class="field"><label>최대 가능 예각</label><div class="anglebox">${fmt(max)}°</div></div></div><div class="note ${angleValid?'ok':'bad'}">${angleValid?'✓ 물림 조건 충족':'⚠ 물림 조건 불충족'} · 밑변 ${fmt(b)} mm · 앞 −${fmt(front)} / 뒤 −${fmt(back)} mm</div><div class="note">대각 ${fmt(hyp)} mm · 셋백 ${fmt(setback(r,angle))} mm</div></div>`);
+panels.push(`<div class="short-card"><div class="short-top"><strong>${order+1}번째 짧은 구간 · 도면 ${idx+1}번</strong><span class="num">${fmt(height)} mm</span></div><div class="mode-grid">${['① 예각<br>+ 예각','② 90°<br>+ 예각','③ 예각<br>+ 90°'].map((name,m)=>`<button type="button" class="mode ${cfg.mode===m?'active':''}" data-idx="${idx}" data-mode="${m}">${name}</button>`).join('')}</div>${splitUI}<div class="line angleline"><div class="field"><label>예각(°) · 변경 가능</label><input type="number" inputmode="decimal" min="0.01" max="89.99" step="0.01" data-idx="${idx}" data-angle value="${fmt(angle)}"></div><div class="field"><label>추천 예각 (소수점 버림)</label><div class="anglebox">${Math.floor(max)}°</div></div></div><div class="note ${angleValid?'ok':'bad'}">${angleValid?'✓ 물림 조건 충족':'⚠ 물림 조건 불충족'} · 밑변 ${fmt(b)} mm · 앞 −${fmt(front)} / 뒤 −${fmt(back)} mm</div><div class="note">대각 ${fmt(hyp)} mm · 셋백 ${fmt(setback(r,angle))} mm</div></div>`);
 });
 el('shortcards').innerHTML=panels.join('')||'<div class="hint">미달 구간이 없습니다. 전체 90°로 계산합니다.</div>';
 for(let i=0;i<lens.length;i++)if(deductions[i])lens[i]-=deductions[i];
 for(let i=0;i<lens.length;i++)if(!Number.isFinite(lens[i])||lens[i]<=0)bad.push(`${i+1}번째 구간: 차감 후 길이 ${fmt(lens[i])}mm (부족)`);
-el('summary').textContent='각 짧은 구간의 차감량을 합산하여 전체 도면에 적용합니다.';
+for(let i=1;i<lens.length-1;i++){
+  // 두 짧은 구간이 같은 중간 구간을 양쪽에서 차감하는 경우,
+  // 남은 도면 길이가 아니라 양 끝 밴딩 접선 사이의 실제 직관을 검사한다.
+  const shared=shortIndices.includes(i-1)&&shortIndices.includes(i+1);
+  if(!shared)continue;
+  const leftSB=setback(r,angles[i-1]),rightSB=setback(r,angles[i]);
+  const straight=lens[i]-leftSB-rightSB;
+  if(!Number.isFinite(straight)||straight<g-1e-8)
+    bad.push(`${i+1}번 중간 구간: 2·3번 등 인접 밴딩 사이 직관 ${fmt(straight)}mm / 필요 최소 ${fmt(g)}mm (셋백 ${fmt(leftSB)}+${fmt(rightSB)}mm 제외). 작업 불가`);
+}
+
+el('summary').textContent='양쪽에서 밑변을 차감하는 중간 구간은 양 끝 셋백을 제외한 직관 길이가 추가 최소물림 이상이어야 합니다. 부족하면 마킹과 커팅을 차단합니다.';
 el('segments').innerHTML=lens.map((v,i)=>`<div class="segline"><span>${i+1}번 구간 (${fmt(ds[i])}mm)</span><span class="${v<=0?'bad':''}">${deductions[i]?`−${fmt(deductions[i])} → `:''}<b>${fmt(v)} mm</b>${shortIndices.includes(i)?' · 대각':''}</span></div>`).join('');
 el('totalbase').textContent=fmt(totalbase)+' mm';
 let developed=lens.reduce((s,v)=>s+v,0);for(let i=0;i<angles.length;i++)developed+=arc(r,angles[i])-2*setback(r,angles[i]);el('developed').textContent=fmt(developed)+' mm';
@@ -58,4 +175,4 @@ el('marks').innerHTML=marks.map((m,i)=>`<div class="mark"><div class="pill">${i+
 el('shortcards').addEventListener('click',e=>{const btn=e.target.closest('button[data-idx]');if(!btn)return;const cfg=config.get(+btn.dataset.idx);if('mode'in btn.dataset){cfg.mode=+btn.dataset.mode;cfg.auto=true;}if('split'in btn.dataset)cfg.split=+btn.dataset.split;render();});
 el('shortcards').addEventListener('input',e=>{if(!e.target.matches('input[data-angle]'))return;const cfg=config.get(+e.target.dataset.idx);cfg.auto=false;cfg.angle=+e.target.value;const focusIdx=+e.target.dataset.idx;render();const next=el('shortcards').querySelector(`input[data-angle][data-idx="${focusIdx}"]`);if(next){next.focus();}});
 ['dims','radius','grip','minimum'].forEach(id=>el(id).addEventListener('input',render));render();
-</script></body></html>
+</script><script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}</script></body></html>
