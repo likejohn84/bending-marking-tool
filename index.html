@@ -46,13 +46,13 @@ section.card:last-of-type .pos{font-size:23px}
 #originalTab > section.card:nth-of-type(3) .stat{padding:5px}
 #originalTab > section.card:nth-of-type(3) .stat strong{font-size:13px}
 </style></head><body><main class="app"><header><h1>원마킹툴</h1><div class="creator">만든사람 이대희</div><div class="sub">도면 치수 → 밴딩 옵션 → 마킹 & 커팅</div></header>
-<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>완성 도면 치수 (하이픈 구분)</label><input id="dims" readonly aria-label="도면 치수 전용 키패드 열기" value="200-150-50-250-50-300" inputmode="text"></div><div class="hint">예: 200-150-50-250-300</div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 구간마다 기존 차감량에 2mm를 더합니다 (16.31 → 18.31). 첫 마킹은 유지, 둘째 −2, 셋째 −4, 커팅 −6mm. 커팅 별도 미세조정은 추가 변경할 때만 사용하며 기본 0입니다. ± 버튼은 0.5mm 단위.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
+<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>완성 도면 치수 (점 또는 하이픈 구분)</label><input id="dims" aria-label="도면 치수, 점으로 구분" autocomplete="off" autocorrect="off" spellcheck="false" value="200-150-50-250-50-300" inputmode="decimal"></div><div class="hint">예: 200.150.50.250.300 (점으로 구분, 정수 mm)</div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 구간마다 기존 차감량에 2mm를 더합니다 (16.31 → 18.31). 첫 마킹은 유지, 둘째 −2, 셋째 −4, 커팅 −6mm. 커팅 별도 미세조정은 추가 변경할 때만 사용하며 기본 0입니다. ± 버튼은 0.5mm 단위.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
 <section class="card"><div class="head">② 짧은 구간별 밴딩 설정 <span class="num" id="countshort">0개</span></div><div id="shortcards"></div></section>
 <section class="card"><div class="head">③ 전체 차감 & 전개 <span class="num">자동</span></div><div id="summary" class="hint"></div><div id="segments" class="segment-list"></div><div class="math" style="margin-top:9px"><div class="stat"><small>차감 밑변 합계</small><strong id="totalbase">—</strong></div><div class="stat"><small>계산용 전개 길이 합계</small><strong id="developed">—</strong></div></div></section>
 <section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div></section><div class="footer">시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
 <div id="angleTab" hidden>
 <section class="card"><div class="head">① 도면 치수와 지정각</div>
-<div class="field"><label>도면 치수 (예: 300-155-300)</label><input id="adims" readonly aria-label="도면 치수 전용 키패드 열기" value="300-155-300" inputmode="text"></div>
+<div class="field"><label>도면 치수 (예: 300.155.300)</label><input id="adims" aria-label="도면 치수, 점으로 구분" autocomplete="off" autocorrect="off" spellcheck="false" value="300-155-300" inputmode="decimal"></div>
 <div class="line" style="margin-top:10px"><div class="field"><label>R (중심선 반경)</label><input id="aradius" type="number" value="38" step="0.1"></div><div class="field"><label>최소 직관 길이</label><input id="agrip" type="number" value="30" step="0.1"></div></div>
 <div class="hint">도면에 표시된 대각길이는 그대로 입력하세요. 밑변을 수동으로 더하거나 치수를 바꿀 필요가 없습니다.</div>
 <div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 구간마다 기존 차감량에 2mm를 더합니다 (16.31 → 18.31). 첫 마킹은 유지, 둘째 −2, 셋째 −4, 커팅 −6mm. 커팅 별도 미세조정은 추가 변경할 때만 사용하며 기본 0입니다. ± 버튼은 0.5mm 단위.</div><div id="angleInputs"></div></section>
@@ -121,7 +121,7 @@ const setback=(r,a)=>r*Math.tan(a*pi/360),arc=(r,a)=>pi*r*a/180;
 const required=(r,g,a,m)=>((m===1||m===2)?r+setback(r,a):2*setback(r,a))+g;
 const config=new Map();
 function maxA(h,r,g,m){let lo=0.00001,hi=89.999;for(let i=0;i<60;i++){const mid=(lo+hi)/2;if(h/Math.sin(mid*pi/180)>=required(r,g,mid,m))lo=mid;else hi=mid;}return lo;}
-const parseDims=v=>v.trim().split(/[-,\s]+/).filter(Boolean).map(Number);
+const parseDims=v=>v.trim().split(/[.\-,\s]+/).filter(Boolean).map(Number);
 function getConfig(idx,order){if(!config.has(idx))config.set(idx,{mode:order===0?1:0,split:.5,auto:true,angle:38});return config.get(idx);}
 function render(){
 const ds=parseDims(el('dims').value),r=+el('radius').value,g=+el('grip').value,minimum=+el('minimum').value;
@@ -201,121 +201,6 @@ document.addEventListener('click',e=>{
 </script>
 
 <style>
-.drawing-keypad-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:9998}
-.drawing-keypad{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#d1d5df;color:#1b1c20;padding:9px 7px calc(12px + env(safe-area-inset-bottom));border-radius:13px 13px 0 0;box-shadow:0 -4px 25px #0005;max-width:550px;margin:auto;font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif}
-.drawing-keypad[hidden],.drawing-keypad-backdrop[hidden]{display:none!important}
-.drawing-keypad-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:2px 6px 8px;font-size:14px}
-.drawing-keypad-top button{background:transparent;color:#087aff;border:0;padding:7px 8px;font-size:17px;font-weight:650}
-.drawing-keypad-display{display:block;box-sizing:border-box;width:100%;font-size:22px;font-weight:500;letter-spacing:.2px;min-height:47px;background:#fff;color:#15171b;padding:10px;border:1px solid #aeb5c2;border-radius:9px;margin-bottom:8px;outline:none;user-select:text;-webkit-user-select:text}
-.drawing-keypad-tools{display:flex;justify-content:space-between;gap:6px;margin-bottom:7px}
-.drawing-keypad-tools button{border:0;background:#b7becb;border-radius:7px;padding:6px 14px;color:#252b35;font-size:14px;font-weight:600}
-.drawing-keypad-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-.drawing-keypad-grid button{min-height:53px;background:#fff;color:#16171a;border:0;border-radius:6px;font-size:27px;font-weight:400;box-shadow:0 1px 0 #9199a7;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-.drawing-keypad-grid button:active{background:#bdc3ce}
-.drawing-keypad-grid button.key-special{background:#b7bfcc;font-size:24px}
-.drawing-keypad-grid button.key-hyphen{font-size:27px}
-.drawing-keypad-grid button.key-clear{grid-column:span 3;min-height:40px;background:#b7bfcc;font-size:15px;font-weight:600}
-#dims[readonly],#adims[readonly]{cursor:pointer}
+#dims,#adims{caret-color:#0a84ff!important;-webkit-user-select:text!important;user-select:text!important}
 </style>
-<div class="drawing-keypad-backdrop" id="drawingKeypadBackdrop" hidden></div>
-<div class="drawing-keypad" id="drawingKeypad" role="dialog" aria-modal="true" aria-label="도면 치수 숫자 키패드" hidden>
- <div class="drawing-keypad-top"><strong>도면 치수 (mm)</strong><button type="button" id="drawingKeypadDone">완료</button></div>
- <div class="drawing-keypad-display" id="drawingKeypadDisplay" role="textbox" aria-label="현재 도면 치수, 터치하여 커서 위치 지정"><span id="drawingKeypadBefore"></span><span id="drawingKeypadCaret" aria-hidden="true">│</span><span id="drawingKeypadAfter"></span></div>
- <div class="drawing-keypad-tools"><button type="button" data-key="left">◀ 커서</button><button type="button" data-key="right">커서 ▶</button><button type="button" data-key="clear">전체 지우기</button></div>
- <div class="drawing-keypad-grid">
- <button type="button" data-key="1">1</button><button type="button" data-key="2">2</button><button type="button" data-key="3">3</button>
- <button type="button" data-key="4">4</button><button type="button" data-key="5">5</button><button type="button" data-key="6">6</button>
- <button type="button" data-key="7">7</button><button type="button" data-key="8">8</button><button type="button" data-key="9">9</button>
- <button type="button" data-key="-" class="key-special key-hyphen">−</button><button type="button" data-key="0">0</button><button type="button" data-key="back" class="key-special" aria-label="한 글자 지우기">⌫</button>
- </div>
-</div>
-<script>
-(()=>{
- const modal=document.getElementById('drawingKeypad'),shade=document.getElementById('drawingKeypadBackdrop'),display=document.getElementById('drawingKeypadDisplay');
- const before=document.getElementById('drawingKeypadBefore'),after=document.getElementById('drawingKeypadAfter');
- let active=null,caret=0;
- function sync(){if(!active)return;caret=Math.max(0,Math.min(caret,active.value.length));before.textContent=active.value.slice(0,caret);after.textContent=active.value.slice(caret);const marker=document.getElementById('drawingKeypadCaret');marker.style.animation='none';void marker.offsetWidth;marker.style.animation='mark-caret-blink-v15 1.1s step-end infinite';marker.scrollIntoView({block:'nearest',inline:'nearest'});}
- function open(el){active=el;caret=el.value.length;modal.hidden=false;shade.hidden=false;sync();}
- function close(){modal.hidden=true;shade.hidden=true;if(active){active.blur();active=null;}}
- for(const id of ['dims','adims']){
-  const el=document.getElementById(id);
-  el.addEventListener('click',()=>open(el));
-  el.addEventListener('focus',()=>{if(modal.hidden)open(el);});
- }
- display.addEventListener('click',e=>{
-  if(!active)return;
-  const str=active.value,rect=display.getBoundingClientRect();
-  const canvas=document.createElement('canvas'),ctx=canvas.getContext('2d');
-  ctx.font=getComputedStyle(display).font;
-  const x=e.clientX-rect.left-parseFloat(getComputedStyle(display).paddingLeft);
-  let nearest=0,dist=Infinity;
-  for(let i=0;i<=str.length;i++){const d=Math.abs(ctx.measureText(str.slice(0,i)).width-x);if(d<dist){dist=d;nearest=i;}}
-  caret=nearest;sync();
- });
- modal.addEventListener('click',e=>{
-  const b=e.target.closest('button[data-key]');if(!b||!active)return;
-  const key=b.dataset.key,v=active.value;
-  if(key==='left'){caret=Math.max(0,caret-1);sync();return;}
-  if(key==='right'){caret=Math.min(v.length,caret+1);sync();return;}
-  if(key==='clear'){active.value='';caret=0;}
-  else if(key==='back'){if(caret>0){active.value=v.slice(0,caret-1)+v.slice(caret);caret--;}}
-  else if(key==='-'){
-   if(caret>0&&v[caret-1]!=='-'&&v[caret]!=='-'){active.value=v.slice(0,caret)+'-'+v.slice(caret);caret++;}
-  }else{active.value=v.slice(0,caret)+key+v.slice(caret);caret++;}
-  active.dispatchEvent(new Event('input',{bubbles:true}));sync();
- });
- document.getElementById('drawingKeypadDone').addEventListener('click',close);
- shade.addEventListener('click',close);
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)close();});
-})();
-</script>
-<style id="system-theme-v14">
-.drawing-keypad-display{display:flex!important;align-items:center;white-space:pre;overflow-x:auto;min-height:49px;cursor:text;user-select:none!important;-webkit-user-select:none!important}
-#drawingKeypadBefore,#drawingKeypadAfter{white-space:pre;flex:none}
-#drawingKeypadCaret{display:inline-block;flex:none;width:2px;height:27px;background:#007aff;border-radius:2px;animation:mark-caret-blink 1s steps(1,end) infinite}
-@keyframes mark-caret-blink{0%,49%{opacity:1}50%,100%{opacity:0}}
-html.system-light{color-scheme:light;background:#f3f5fa;color:#182437}
-html.system-light body{background:#f3f5fa;color:#182437}
-html.system-light .card{background:#fff;border-color:#dce3ee}
-html.system-light .creator,html.system-light .sub,html.system-light .muted,html.system-light .footer,html.system-light .field label,html.system-light .hint,html.system-light .note,html.system-light .kind{color:#51617a}
-html.system-light input,html.system-light .short-card,html.system-light .stat,html.system-light .mode,html.system-light .split button{background:#f5f7fc;color:#1a273a;border-color:#cbd5e4}
-html.system-light .segline,html.system-light .mark{border-color:#dbe2ed}
-html.system-light .pill,html.system-light .num{background:#e4ebf7;color:#28415f}
-html.system-light .cut{background:#e2f6ec}
-html.system-light .cut .pill{background:#c8eada;color:#176b50}
-html.system-light .cut .pos{color:#176b50}
-html.system-light .tab:not(.active){background:#e9edf5;color:#344761;border-color:#cbd5e4}
-html.system-light .drawing-keypad{background:#d1d5df;color:#1b1c20}
-html.system-light .drawing-keypad-top button{color:#087aff}
-html.system-light .drawing-keypad-display{background:#fff;color:#15171b;border-color:#aeb5c2}
-html.system-light .drawing-keypad-tools button{background:#b7becb;color:#252b35}
-html.system-light .drawing-keypad-grid button{background:#fff;color:#16171a;box-shadow:0 1px 0 #9199a7}
-html.system-light .drawing-keypad-grid button.key-special,html.system-light .drawing-keypad-grid button.key-clear{background:#b7bfcc;color:#16171a}
-html.system-dark{color-scheme:dark;background:#0b1323;color:#e9effc}
-html.system-dark body{background:#0b1323;color:#e9effc}
-html.system-dark .drawing-keypad{background:#1c1c1e!important;color:#f5f5f7!important;box-shadow:0 -4px 24px #0009!important}
-html.system-dark .drawing-keypad-top button{color:#0a84ff!important}
-html.system-dark .drawing-keypad-display{background:#2c2c2e!important;color:#fff!important;border-color:#545458!important}
-html.system-dark .drawing-keypad-tools button{background:#48484a!important;color:#fff!important}
-html.system-dark .drawing-keypad-grid button{background:#636366!important;color:#fff!important;box-shadow:0 1px 0 #101012!important}
-html.system-dark .drawing-keypad-grid button.key-special,html.system-dark .drawing-keypad-grid button.key-clear{background:#48484a!important;color:#fff!important}
-</style>
-<script>
-(function(){
- const media=window.matchMedia('(prefers-color-scheme: dark)');
- function apply(){
-  const dark=media.matches;
-  document.documentElement.classList.toggle('system-dark',dark);
-  document.documentElement.classList.toggle('system-light',!dark);
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#0b1323':'#f3f5fa');
- }
- apply();
- if(media.addEventListener)media.addEventListener('change',apply);
- else if(media.addListener)media.addListener(apply);
- document.addEventListener('visibilitychange',()=>{if(!document.hidden)apply();});
- window.addEventListener('pageshow',apply);
-})();
-</script><style id="cursor-visibility-v15">
-#drawingKeypadCaret{display:inline-block!important;position:relative!important;flex:0 0 auto!important;min-width:3px!important;width:auto!important;height:auto!important;min-height:28px!important;line-height:28px!important;font-size:29px!important;font-weight:500!important;color:#0a84ff!important;background:transparent!important;opacity:1!important;visibility:visible!important;vertical-align:middle!important;animation:mark-caret-blink-v15 1.1s step-end infinite!important;white-space:pre!important}
-@keyframes mark-caret-blink-v15{0%,49%{opacity:1}50%,100%{opacity:0}}
-</style></body></html>
+</body></html>
