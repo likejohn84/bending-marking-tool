@@ -1,5 +1,5 @@
-<!doctype html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>원마킹툴</title><meta name="theme-color" content="#0b1323"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="원마킹툴"><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-180.png"><style>
-:root{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color-scheme:dark;background:#0b1323;color:#e9effc}*{box-sizing:border-box}body{margin:0;background:#0b1323}.app{max-width:470px;margin:auto;padding:15px 13px 40px}header{text-align:center;padding:8px 0 15px}h1{font-size:25px;margin:0 0 5px;letter-spacing:-.8px}.creator{color:#8b9cb6;font-size:11px}.sub{color:#9aaac3;font-size:12px;margin-top:7px}.card{background:#172237;border:1px solid #283751;border-radius:16px;padding:14px;margin-bottom:10px}.head{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:800;margin-bottom:10px}.num{background:#273958;color:#bed8ff;border-radius:7px;font-weight:700;padding:3px 7px;font-size:11px}.line{display:flex;gap:8px}.field{flex:1;min-width:0}.field label{font-size:11px;color:#a7b9d2;display:block;margin-bottom:6px}input{width:100%;color:#fff;background:#0d182b;border:1px solid #40516a;padding:11px 9px;border-radius:9px;font-size:17px;font-weight:700;outline:none}input:focus{border-color:#4a9dff}small{font-size:11px;color:#9db0ca}.hint{font-size:12px;color:#bac9e0;line-height:1.5;margin-top:8px}.warning{border-radius:11px;background:#483420;border:1px solid #8e6636;color:#ffdbad;padding:10px 11px;font-size:12px;margin:12px 0 0}.good{background:#1b4037;border-color:#32745d;color:#a4ead0}.mode-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.mode{padding:10px 3px;background:#0d182b;color:#b8c9e1;border:1px solid #3a4a66;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer}.mode.active{background:#165d9e;border-color:#65b7ff;color:white}.split{display:flex;gap:6px;margin-top:9px}.split button{flex:1;padding:8px 3px;border:1px solid #3b4c66;background:#0d182b;color:#b6c9e1;border-radius:8px;font-size:12px}.split button.active{background:#284c7c;border-color:#71adf0;color:white}.mark{display:grid;grid-template-columns:45px 1fr 78px;gap:9px;align-items:center;padding:9px 3px;border-bottom:1px solid #2b3c55}.mark:last-child{border-bottom:0}.pill{border-radius:8px;background:#2e4361;text-align:center;padding:7px 3px;font-size:12px;font-weight:700}.pos{font-size:22px;font-weight:800;letter-spacing:-.4px}.kind{text-align:right;font-size:12px;color:#b2c4db}.cut{background:#102c26;border-radius:9px;margin-top:8px;padding:9px 7px;border-bottom:0}.cut .pill{background:#176653}.cut .pos{color:#65e0b4}.muted{color:#8e9fb9;font-size:11px}.mainval{font-size:25px;font-weight:900;color:#8ac9ff}.math{display:grid;grid-template-columns:1fr 1fr;gap:6px}.stat{background:#0d182b;border-radius:8px;padding:10px}.stat strong{display:block;font-size:17px;margin-top:3px}.footer{font-size:11px;line-height:1.6;color:#8d9eb7;margin-top:10px}button{touch-action:manipulation} @media(min-width:650px){.app{margin:28px auto}.card{box-shadow:0 14px 36px #0002}} </style><style id="multi-style">.short-card{background:#0d182b;border:1px solid #38506b;border-radius:12px;padding:12px;margin-top:10px}.short-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.short-top strong{font-size:14px}.short-top .num{background:#554027;color:#ffe0ab}.angleline{margin-top:12px;align-items:flex-end}.anglebox{color:#8ac9ff;font-size:20px;font-weight:800;padding-bottom:7px}.segline{font-size:12px;padding:8px 0;border-bottom:1px solid #2e3e55;display:flex;justify-content:space-between;gap:8px}.segline:last-child{border:0}.bad{color:#ffb0a5}.ok{color:#a0e5c9}.mode{min-height:46px}.short-card input{font-size:16px}.stat strong{font-size:15px}.note{font-size:12px;line-height:1.45;margin-top:8px;color:#bccce1}</style><style id="layout-v4">
+<!doctype html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>원마킹툴</title><meta name="theme-color" content="#0b1323" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f3f5fa" media="(prefers-color-scheme: light)"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="원마킹툴"><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-180.png"><style>
+:root{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color-scheme:light dark;background:#0b1323;color:#e9effc}*{box-sizing:border-box}body{margin:0;background:#0b1323}.app{max-width:470px;margin:auto;padding:15px 13px 40px}header{text-align:center;padding:8px 0 15px}h1{font-size:25px;margin:0 0 5px;letter-spacing:-.8px}.creator{color:#8b9cb6;font-size:11px}.sub{color:#9aaac3;font-size:12px;margin-top:7px}.card{background:#172237;border:1px solid #283751;border-radius:16px;padding:14px;margin-bottom:10px}.head{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:800;margin-bottom:10px}.num{background:#273958;color:#bed8ff;border-radius:7px;font-weight:700;padding:3px 7px;font-size:11px}.line{display:flex;gap:8px}.field{flex:1;min-width:0}.field label{font-size:11px;color:#a7b9d2;display:block;margin-bottom:6px}input{width:100%;color:#fff;background:#0d182b;border:1px solid #40516a;padding:11px 9px;border-radius:9px;font-size:17px;font-weight:700;outline:none}input:focus{border-color:#4a9dff}small{font-size:11px;color:#9db0ca}.hint{font-size:12px;color:#bac9e0;line-height:1.5;margin-top:8px}.warning{border-radius:11px;background:#483420;border:1px solid #8e6636;color:#ffdbad;padding:10px 11px;font-size:12px;margin:12px 0 0}.good{background:#1b4037;border-color:#32745d;color:#a4ead0}.mode-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.mode{padding:10px 3px;background:#0d182b;color:#b8c9e1;border:1px solid #3a4a66;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer}.mode.active{background:#165d9e;border-color:#65b7ff;color:white}.split{display:flex;gap:6px;margin-top:9px}.split button{flex:1;padding:8px 3px;border:1px solid #3b4c66;background:#0d182b;color:#b6c9e1;border-radius:8px;font-size:12px}.split button.active{background:#284c7c;border-color:#71adf0;color:white}.mark{display:grid;grid-template-columns:45px 1fr 78px;gap:9px;align-items:center;padding:9px 3px;border-bottom:1px solid #2b3c55}.mark:last-child{border-bottom:0}.pill{border-radius:8px;background:#2e4361;text-align:center;padding:7px 3px;font-size:12px;font-weight:700}.pos{font-size:22px;font-weight:800;letter-spacing:-.4px}.kind{text-align:right;font-size:12px;color:#b2c4db}.cut{background:#102c26;border-radius:9px;margin-top:8px;padding:9px 7px;border-bottom:0}.cut .pill{background:#176653}.cut .pos{color:#65e0b4}.muted{color:#8e9fb9;font-size:11px}.mainval{font-size:25px;font-weight:900;color:#8ac9ff}.math{display:grid;grid-template-columns:1fr 1fr;gap:6px}.stat{background:#0d182b;border-radius:8px;padding:10px}.stat strong{display:block;font-size:17px;margin-top:3px}.footer{font-size:11px;line-height:1.6;color:#8d9eb7;margin-top:10px}button{touch-action:manipulation} @media(min-width:650px){.app{margin:28px auto}.card{box-shadow:0 14px 36px #0002}} </style><style id="multi-style">.short-card{background:#0d182b;border:1px solid #38506b;border-radius:12px;padding:12px;margin-top:10px}.short-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.short-top strong{font-size:14px}.short-top .num{background:#554027;color:#ffe0ab}.angleline{margin-top:12px;align-items:flex-end}.anglebox{color:#8ac9ff;font-size:20px;font-weight:800;padding-bottom:7px}.segline{font-size:12px;padding:8px 0;border-bottom:1px solid #2e3e55;display:flex;justify-content:space-between;gap:8px}.segline:last-child{border:0}.bad{color:#ffb0a5}.ok{color:#a0e5c9}.mode{min-height:46px}.short-card input{font-size:16px}.stat strong{font-size:15px}.note{font-size:12px;line-height:1.45;margin-top:8px;color:#bccce1}</style><style id="layout-v4">
 /* ① 도면 입력과 ④ 결과를 강조하고 ②·③은 압축 */
 #shortcards .short-card{padding:8px 9px;margin-top:6px;border-radius:9px}
 #shortcards .short-top{margin-bottom:5px}
@@ -45,6 +45,49 @@ section.card:last-of-type .pos{font-size:23px}
 #originalTab > section.card:nth-of-type(3) .math{gap:4px;margin-top:5px!important}
 #originalTab > section.card:nth-of-type(3) .stat{padding:5px}
 #originalTab > section.card:nth-of-type(3) .stat strong{font-size:13px}
+</style><style id="auto-system-theme-v12">
+/* v12: Follow iOS appearance automatically; dark palette remains the original design. */
+@media (prefers-color-scheme: dark){
+ .drawing-keypad{background:#1c1c1e;color:#f5f5f7;box-shadow:0 -4px 24px #0009}
+ .drawing-keypad-top button{color:#0a84ff}
+ .drawing-keypad-display{background:#2c2c2e;color:#fff;border-color:#545458;caret-color:#0a84ff}
+ .drawing-keypad-tools button{background:#48484a;color:#fff}
+ .drawing-keypad-grid button{background:#636366;color:#fff;box-shadow:0 1px 0 #101012}
+ .drawing-keypad-grid button:active{background:#85858a}
+ .drawing-keypad-grid button.key-special,.drawing-keypad-grid button.key-clear{background:#48484a;color:#fff}
+}
+@media (prefers-color-scheme: light){
+ :root{background:#f3f5fa;color:#17243a}
+ body{background:#f3f5fa;color:#17243a}
+ .card{background:#fff;border-color:#d9e1ed;box-shadow:0 3px 14px #25314b0b}
+ .creator,.sub,.footer,.muted{color:#60738b}
+ .field label,.hint,.note,small,.kind{color:#526780}
+ input{background:#f8faff;color:#18253c;border-color:#b7c7db}
+ input:focus{border-color:#1675d1}
+ .num{background:#e9f2ff;color:#285c9c}
+ .mode,.split button,.short-card,.stat{background:#f3f6fb;color:#2e4867;border-color:#c7d4e5}
+ .mode.active,.split button.active{background:#dbeaff;color:#134c91;border-color:#4a9bfa}
+ .short-card .num{background:#fff0d9;color:#79501b}
+ .mark,.segline{border-color:#e2e8f1}
+ .pill{background:#e9f0fa;color:#26415f}
+ .cut{background:#e5f8ef}
+ .cut .pill{background:#d1f0e1;color:#146346}
+ .cut .pos{color:#127c58}
+ .bad{color:#b83a2b}.ok{color:#167752}
+ .warning{background:#fff2e5;border-color:#f0c88c;color:#814916}
+ .warning.good{background:#e5f8ed;border-color:#93cfae;color:#1b6848}
+ .mainval,.anglebox{color:#1667b1}
+ .tab{background:#e9eef7;color:#526681;border-color:#c9d5e6}
+ .tab.active{background:#1663aa;color:#fff;border-color:#1663aa}
+ .correction-stepper button{background:#e4edf9;color:#184b85;border-color:#adc6e4}
+ .drawing-keypad{background:#d1d5df;color:#1b1c20}
+ .drawing-keypad-top button{color:#087aff}
+ .drawing-keypad-display{background:#fff;color:#15171b;border-color:#aeb5c2}
+ .drawing-keypad-tools button{background:#b7becb;color:#252b35}
+ .drawing-keypad-grid button{background:#fff;color:#16171a;box-shadow:0 1px 0 #9199a7}
+ .drawing-keypad-grid button:active{background:#bdc3ce}
+ .drawing-keypad-grid button.key-special,.drawing-keypad-grid button.key-clear{background:#b7bfcc;color:#16171a}
+}
 </style></head><body><main class="app"><header><h1>원마킹툴</h1><div class="creator">만든사람 이대희</div><div class="sub">도면 치수 → 밴딩 옵션 → 마킹 & 커팅</div></header>
 <nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>완성 도면 치수 (하이픈 구분)</label><input id="dims" readonly aria-label="도면 치수 전용 키패드 열기" value="200-150-50-250-50-300" inputmode="text"></div><div class="hint">예: 200-150-50-250-300</div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 구간마다 기존 차감량에 2mm를 더합니다 (16.31 → 18.31). 첫 마킹은 유지, 둘째 −2, 셋째 −4, 커팅 −6mm. 커팅 별도 미세조정은 추가 변경할 때만 사용하며 기본 0입니다. ± 버튼은 0.5mm 단위.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
 <section class="card"><div class="head">② 짧은 구간별 밴딩 설정 <span class="num" id="countshort">0개</span></div><div id="shortcards"></div></section>
@@ -201,47 +244,56 @@ document.addEventListener('click',e=>{
 </script>
 
 <style>
-.drawing-keypad-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:9998}
-.drawing-keypad{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#142238;color:#fff;padding:12px max(14px,env(safe-area-inset-right)) calc(14px + env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));border-radius:18px 18px 0 0;box-shadow:0 -6px 30px #0008;max-width:550px;margin:auto}
+.drawing-keypad-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:9998}
+.drawing-keypad{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#d1d5df;color:#1b1c20;padding:9px 7px calc(12px + env(safe-area-inset-bottom));border-radius:13px 13px 0 0;box-shadow:0 -4px 25px #0005;max-width:550px;margin:auto;font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif}
 .drawing-keypad[hidden],.drawing-keypad-backdrop[hidden]{display:none!important}
-.drawing-keypad-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px}
-.drawing-keypad-display{font-size:19px;font-weight:800;letter-spacing:.4px;overflow-wrap:anywhere;min-height:40px;background:#223752;padding:10px;border-radius:9px;margin-bottom:9px}
-.drawing-keypad-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.drawing-keypad-grid button{min-height:52px;background:#2d4260;color:#fff;border:1px solid #506581;border-radius:11px;font-size:23px;font-weight:750;touch-action:manipulation}
-.drawing-keypad-grid button.key-hyphen{background:#155f9e}
-.drawing-keypad-top button{background:#1678bd;color:white;border:0;border-radius:9px;padding:10px 16px;font-size:15px;font-weight:750}
+.drawing-keypad-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:2px 6px 8px;font-size:14px}
+.drawing-keypad-top button{background:transparent;color:#087aff;border:0;padding:7px 8px;font-size:17px;font-weight:650}
+.drawing-keypad-display{display:block;box-sizing:border-box;width:100%;font-size:22px;font-weight:500;letter-spacing:.2px;min-height:47px;background:#fff;color:#15171b;padding:10px;border:1px solid #aeb5c2;border-radius:9px;margin-bottom:8px;outline:none;user-select:text;-webkit-user-select:text}
+.drawing-keypad-tools{display:flex;justify-content:space-between;gap:6px;margin-bottom:7px}
+.drawing-keypad-tools button{border:0;background:#b7becb;border-radius:7px;padding:6px 14px;color:#252b35;font-size:14px;font-weight:600}
+.drawing-keypad-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.drawing-keypad-grid button{min-height:53px;background:#fff;color:#16171a;border:0;border-radius:6px;font-size:27px;font-weight:400;box-shadow:0 1px 0 #9199a7;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.drawing-keypad-grid button:active{background:#bdc3ce}
+.drawing-keypad-grid button.key-special{background:#b7bfcc;font-size:24px}
+.drawing-keypad-grid button.key-hyphen{font-size:27px}
+.drawing-keypad-grid button.key-clear{grid-column:span 3;min-height:40px;background:#b7bfcc;font-size:15px;font-weight:600}
 #dims[readonly],#adims[readonly]{cursor:pointer}
 </style>
 <div class="drawing-keypad-backdrop" id="drawingKeypadBackdrop" hidden></div>
-<div class="drawing-keypad" id="drawingKeypad" role="dialog" aria-modal="true" aria-label="도면 치수 전용 키패드" hidden>
- <div class="drawing-keypad-top"><strong>도면 치수 입력 (mm)</strong><button type="button" id="drawingKeypadDone">완료 ✓</button></div>
- <div class="drawing-keypad-display" id="drawingKeypadDisplay" aria-live="polite"></div>
+<div class="drawing-keypad" id="drawingKeypad" role="dialog" aria-modal="true" aria-label="도면 치수 숫자 키패드" hidden>
+ <div class="drawing-keypad-top"><strong>도면 치수 (mm)</strong><button type="button" id="drawingKeypadDone">완료</button></div>
+ <input class="drawing-keypad-display" id="drawingKeypadDisplay" type="text" readonly inputmode="none" aria-label="현재 도면 치수, 눌러서 커서 위치 지정">
+ <div class="drawing-keypad-tools"><button type="button" data-key="left">◀ 커서</button><button type="button" data-key="right">커서 ▶</button><button type="button" data-key="clear">전체 지우기</button></div>
  <div class="drawing-keypad-grid">
  <button type="button" data-key="1">1</button><button type="button" data-key="2">2</button><button type="button" data-key="3">3</button>
  <button type="button" data-key="4">4</button><button type="button" data-key="5">5</button><button type="button" data-key="6">6</button>
  <button type="button" data-key="7">7</button><button type="button" data-key="8">8</button><button type="button" data-key="9">9</button>
- <button type="button" data-key="-" class="key-hyphen">−</button><button type="button" data-key="0">0</button><button type="button" data-key="back">⌫</button>
- <button type="button" data-key="clear" style="grid-column:span 3;font-size:16px;min-height:42px">전체 지우기</button>
+ <button type="button" data-key="-" class="key-special key-hyphen">−</button><button type="button" data-key="0">0</button><button type="button" data-key="back" class="key-special" aria-label="한 글자 지우기">⌫</button>
  </div>
 </div>
 <script>
 (()=>{
  const modal=document.getElementById('drawingKeypad'),shade=document.getElementById('drawingKeypadBackdrop'),display=document.getElementById('drawingKeypadDisplay');
  let active=null,caret=0;
- const sync=()=>{display.textContent=active?.value||'치수를 입력하세요';};
+ function sync(){if(!active)return;display.value=active.value;try{display.setSelectionRange(caret,caret);}catch(e){}}
+ function open(el){active=el;caret=el.value.length;modal.hidden=false;shade.hidden=false;sync();}
  function close(){modal.hidden=true;shade.hidden=true;if(active){active.blur();active=null;}}
  for(const id of ['dims','adims']){
   const el=document.getElementById(id);
-  el.addEventListener('click',()=>{active=el;caret=el.selectionStart??el.value.length;modal.hidden=false;shade.hidden=false;sync();});
-  el.addEventListener('focus',()=>{if(modal.hidden){active=el;caret=el.selectionStart??el.value.length;modal.hidden=false;shade.hidden=false;sync();}});
+  el.addEventListener('click',()=>open(el));
+  el.addEventListener('focus',()=>{if(modal.hidden)open(el);});
  }
+ display.addEventListener('click',()=>{caret=display.selectionStart??caret;});
+ display.addEventListener('keyup',()=>{caret=display.selectionStart??caret;});
  modal.addEventListener('click',e=>{
   const b=e.target.closest('button[data-key]');if(!b||!active)return;
   const key=b.dataset.key,v=active.value;
+  if(key==='left'){caret=Math.max(0,caret-1);sync();return;}
+  if(key==='right'){caret=Math.min(v.length,caret+1);sync();return;}
   if(key==='clear'){active.value='';caret=0;}
   else if(key==='back'){if(caret>0){active.value=v.slice(0,caret-1)+v.slice(caret);caret--;}}
   else if(key==='-'){
-   // Avoid accidental duplicate separators; allow deleting and re-entering a section.
    if(caret>0&&v[caret-1]!=='-'&&v[caret]!=='-'){active.value=v.slice(0,caret)+'-'+v.slice(caret);caret++;}
   }else{active.value=v.slice(0,caret)+key+v.slice(caret);caret++;}
   active.dispatchEvent(new Event('input',{bubbles:true}));sync();
