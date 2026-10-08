@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>원마킹툴</title><meta name="theme-color" content="#0b1323" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f3f5fa" media="(prefers-color-scheme: light)"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="원마킹툴"><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-180.png"><style>
+<!doctype html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>원마킹툴</title><meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: light)"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="원마킹툴"><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-180.png"><style>
 :root{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color-scheme:light dark;background:#0b1323;color:#e9effc}*{box-sizing:border-box}body{margin:0;background:#0b1323}.app{max-width:470px;margin:auto;padding:calc(15px + env(safe-area-inset-top, 0px)) 13px 40px}header{text-align:center;padding:8px 0 15px}h1{font-size:25px;margin:0 0 5px;letter-spacing:-.8px}.creator{color:#8b9cb6;font-size:11px}.sub{color:#9aaac3;font-size:12px;margin-top:7px}.card{background:#172237;border:1px solid #283751;border-radius:16px;padding:14px;margin-bottom:10px}.head{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:800;margin-bottom:10px}.num{background:#273958;color:#bed8ff;border-radius:7px;font-weight:700;padding:3px 7px;font-size:11px}.line{display:flex;gap:8px}.field{flex:1;min-width:0}.field label{font-size:11px;color:#a7b9d2;display:block;margin-bottom:6px}input{width:100%;color:#fff;background:#0d182b;border:1px solid #40516a;padding:11px 9px;border-radius:9px;font-size:17px;font-weight:700;outline:none}input:focus{border-color:#4a9dff}small{font-size:11px;color:#9db0ca}.hint{font-size:12px;color:#bac9e0;line-height:1.5;margin-top:8px}.warning{border-radius:11px;background:#483420;border:1px solid #8e6636;color:#ffdbad;padding:10px 11px;font-size:12px;margin:12px 0 0}.good{background:#1b4037;border-color:#32745d;color:#a4ead0}.mode-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.mode{padding:10px 3px;background:#0d182b;color:#b8c9e1;border:1px solid #3a4a66;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer}.mode.active{background:#165d9e;border-color:#65b7ff;color:white}.split{display:flex;gap:6px;margin-top:9px}.split button{flex:1;padding:8px 3px;border:1px solid #3b4c66;background:#0d182b;color:#b6c9e1;border-radius:8px;font-size:12px}.split button.active{background:#284c7c;border-color:#71adf0;color:white}.mark{display:grid;grid-template-columns:45px 1fr 78px;gap:9px;align-items:center;padding:9px 3px;border-bottom:1px solid #2b3c55}.mark:last-child{border-bottom:0}.pill{border-radius:8px;background:#2e4361;text-align:center;padding:7px 3px;font-size:12px;font-weight:700}.pos{font-size:22px;font-weight:800;letter-spacing:-.4px}.kind{text-align:right;font-size:12px;color:#b2c4db}.cut{background:#102c26;border-radius:9px;margin-top:8px;padding:9px 7px;border-bottom:0}.cut .pill{background:#176653}.cut .pos{color:#65e0b4}.muted{color:#8e9fb9;font-size:11px}.mainval{font-size:25px;font-weight:900;color:#8ac9ff}.math{display:grid;grid-template-columns:1fr 1fr;gap:6px}.stat{background:#0d182b;border-radius:8px;padding:10px}.stat strong{display:block;font-size:17px;margin-top:3px}.footer{font-size:11px;line-height:1.6;color:#8d9eb7;margin-top:10px}button{touch-action:manipulation} @media(min-width:650px){.app{margin:28px auto}.card{box-shadow:0 14px 36px #0002}} </style><style id="multi-style">.short-card{background:#0d182b;border:1px solid #38506b;border-radius:12px;padding:12px;margin-top:10px}.short-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.short-top strong{font-size:14px}.short-top .num{background:#554027;color:#ffe0ab}.angleline{margin-top:12px;align-items:flex-end}.anglebox{color:#8ac9ff;font-size:20px;font-weight:800;padding-bottom:7px}.segline{font-size:12px;padding:8px 0;border-bottom:1px solid #2e3e55;display:flex;justify-content:space-between;gap:8px}.segline:last-child{border:0}.bad{color:#ffb0a5}.ok{color:#a0e5c9}.mode{min-height:46px}.short-card input{font-size:16px}.stat strong{font-size:15px}.note{font-size:12px;line-height:1.45;margin-top:8px;color:#bccce1}</style><style id="layout-v4">
 /* ① 도면 입력과 ④ 결과를 강조하고 ②·③은 압축 */
 #shortcards .short-card{padding:8px 9px;margin-top:6px;border-radius:9px}
@@ -53,11 +53,42 @@ section.card:last-of-type .pos{font-size:23px}
 .segment-details[open] .segment-chevron{transform:rotate(180deg)}
 @media(prefers-color-scheme:dark){
 }
+</style><style id="industrial-charcoal-yellow-v30">
+:root{color-scheme:dark!important;background:#0d0e10!important;color:#f0f0ec!important}
+html,body{background:#0d0e10!important;color:#f0f0ec!important}
+.card{background:#202225!important;border-color:#383b3e!important}
+.short-card,.stat{background:#151719!important;border-color:#3b3d3f!important}
+header h1{color:#f5f4ef!important}
+.creator,.sub,.muted,.footer{color:#a3a5a7!important}
+.field label,.hint,.note,.kind,small{color:#c3c4c3!important}
+input{background:#111315!important;color:#fff!important;border-color:#55585a!important}
+input:focus{border-color:#ffd13f!important;box-shadow:0 0 0 1px #ffd13f55!important}
+.tab{background:#242628!important;border-color:#494c4f!important;color:#d6d6d2!important}
+.tab.active{background:#ffd13f!important;border-color:#ffe279!important;color:#151515!important}
+.mode,.split button{background:#181a1c!important;border-color:#4a4d50!important;color:#e3e3df!important}
+.mode.active,.split button.active{background:#ffd13f!important;border-color:#ffe279!important;color:#171717!important}
+.num,.pill{background:#393b3d!important;color:#ffe18a!important}
+.short-top .num{background:#51441d!important;color:#ffe18a!important}
+.anglebox,.mainval,.pos{color:#ffd13f!important}
+.mark{border-bottom-color:#3c3e40!important}
+.cut{background:#2d291b!important;border-color:#66531b!important}
+.cut .pill{background:#ffd13f!important;color:#161616!important}
+.cut .pos{color:#ffe079!important}
+.segment-chevron{color:#ffd13f!important}
+.segline{border-bottom-color:#3d4042!important}
+.warning{background:#392c1d!important;border-color:#8c6632!important;color:#ffddb2!important}
+.good{background:#19362b!important;border-color:#38775d!important;color:#b5f2d8!important}
+/* Keyboard visual styling only; preserve v29 touch geometry and events. */
+.drawing-dock{background:#191b1d!important;border-top-color:#555044!important}
+.drawing-dock button{background:#333537!important;color:#f5f4ef!important;border-color:#4d5052!important}
+.drawing-dock button:active{background:#665622!important}
+#drawingDockDone{background:#ffd13f!important;color:#171717!important}
+#drawingDockSound{color:#ffd13f!important}
 </style></head><body><main class="app"><header><h1>원마킹툴</h1><div class="creator">만든사람 이대희</div></header>
 <nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>도면 치수</label><input id="dims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="200-150-50-250-50-300" inputmode="none" data-drawing-input="1"></div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
 <section class="card"><div class="head">② 짧은 구간별 밴딩 설정 <span class="num" id="countshort">0개</span></div><div id="shortcards"></div></section>
 <section class="card"><details class="segment-details"><summary class="head">③ 구간별 실제길이 <span class="segment-chevron" aria-hidden="true">⌄</span></summary><div id="summary" class="hint"></div><div id="segments" class="segment-list"></div><div class="math" style="margin-top:9px"><div class="stat"><small>차감 밑변 합계</small><strong id="totalbase">—</strong></div><div class="stat"><small>계산용 전개 길이 합계</small><strong id="developed">—</strong></div></div></details></section>
-<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div></section><div class="footer">v28 · 시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
+<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div></section><div class="footer">v30 · 시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
 <div id="angleTab" hidden>
 <section class="card"><div class="head">① 도면 치수와 지정각</div>
 <div class="field"><label>도면 치수</label><input id="adims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="300-155-300" inputmode="none" data-drawing-input="1"></div>
@@ -65,7 +96,7 @@ section.card:last-of-type .pos{font-size:23px}
 <div class="hint">도면에 표시된 대각길이는 그대로 입력하세요. 밑변을 수동으로 더하거나 치수를 바꿀 필요가 없습니다.</div>
 <div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="angleInputs"></div></section>
 <section class="card"><div class="head">② 마킹 & 커팅 <span class="num">0점 기준</span></div><div id="angleMarks"></div></section>
-<div class="footer">v28 · 지정각 탭은 각 구간 치수를 이론상 교점 간 중심선 치수로 해석합니다. 벤더별 마킹 기준과 실제 직관 최소값을 검증한 뒤 작업에 사용하세요.</div>
+<div class="footer">v30 · 지정각 탭은 각 구간 치수를 이론상 교점 간 중심선 치수로 해석합니다. 벤더별 마킹 기준과 실제 직관 최소값을 검증한 뒤 작업에 사용하세요.</div>
 </div></main>
 <style>
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:11px}
@@ -280,22 +311,22 @@ body.drawing-dock-open{padding-bottom:365px!important}
   }
   return audioContext;
  };
- let queuedSounds=[];let soundFrame=0;
- const flushSounds=()=>{
-  soundFrame=0;
-  if(!soundOn){queuedSounds.length=0;return;}
-  try{
-   const ctx=prepareSound();if(!ctx){queuedSounds.length=0;return;}
-   if(ctx.state==='suspended')ctx.resume().catch(()=>{});
-   const pending=queuedSounds.splice(0,12);
-   for(const kind of pending){const src=ctx.createBufferSource();src.buffer=soundBuffers[kind]||soundBuffers.digit;src.connect(ctx.destination);src.start();}
-  }catch(e){queuedSounds.length=0;}
- };
+ // Play at most one tiny sound per tap, after input and pointer handling finish.
+ let soundTimer=null,lastSoundAt=0,pendingSound='digit';
  const playKeySound=(kind)=>{
   if(!soundOn)return;
-  // Keep pointer/input handling independent of audio construction and playback.
-  if(queuedSounds.length<12)queuedSounds.push(kind);
-  if(!soundFrame)soundFrame=requestAnimationFrame(flushSounds);
+  pendingSound=kind;
+  if(soundTimer!==null)return;
+  soundTimer=setTimeout(()=>{
+   soundTimer=null;
+   if(!soundOn)return;
+   try{
+    const ctx=prepareSound();if(!ctx)return;
+    if(ctx.state==='suspended')ctx.resume().catch(()=>{});
+    const src=ctx.createBufferSource();src.buffer=soundBuffers[pendingSound]||soundBuffers.digit;
+    src.connect(ctx.destination);src.start();
+   }catch(e){}
+  },0);
  };
  const isDrawing=e=>e&&e.matches&&e.matches('input[data-drawing-input]');
  const capture=()=>{if(!active)return;const a=active.selectionStart,b=active.selectionEnd;if(Number.isInteger(a)&&Number.isInteger(b)){savedStart=a;savedEnd=b;}};
@@ -334,12 +365,9 @@ body.drawing-dock-open{padding-bottom:365px!important}
  };
  // Dock behaves like the iPhone keyboard: finger motion inside it never scrolls the page.
  dock.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
- // Short backspace removes one character. Holding it clears the entire drawing.
- // Deletion happens on pointerup so a long hold does not first delete a character.
- let lastPointerAt=0, held=null, clearTimer=null;
- const stopHold=()=>{if(clearTimer!==null){clearTimeout(clearTimer);clearTimer=null;}held=null;};
- // iOS standalone Safari may report the element one row above the visible touch.
- // Resolve the key by its on-screen bounding rectangle instead of trusting event.target.
+ // Commit taps on pointerup (not pointerdown): accidental brushes won't type.
+ // Each pointer has its own record so fast overlapping taps cannot cancel one another.
+ const touches=new Map();let lastPointerAt=0;
  const buttonAt=(x,y,fallback)=>{
   for(const btn of dock.querySelectorAll('button')){
    const r=btn.getBoundingClientRect();
@@ -347,37 +375,41 @@ body.drawing-dock-open{padding-bottom:365px!important}
   }
   return fallback?.closest?.('button')||null;
  };
-
+ const clearDrawing=()=>{if(!active)return;active.value='';active.dispatchEvent(new Event('input',{bubbles:true}));setCaret(0);playKeySound('erase');};
  dock.addEventListener('pointerdown',e=>{
   const btn=buttonAt(e.clientX,e.clientY,e.target);if(!btn)return;
   e.preventDefault();lastPointerAt=Date.now();
+  const t={btn,x:e.clientX,y:e.clientY,moved:false,long:false,timer:null};
+  touches.set(e.pointerId,t);
+  // Capture on the stable dock, not an individual key.
+  try{dock.setPointerCapture(e.pointerId);}catch(err){}
   if(btn.dataset.dockKey==='backspace'){
-   stopHold();held={id:e.pointerId,btn,long:false,x:e.clientX,y:e.clientY};
-   try{btn.setPointerCapture(e.pointerId);}catch(err){}
-   clearTimer=setTimeout(()=>{
-    clearTimer=null;
-    if(held&&held.id===e.pointerId){held.long=true;playKeySound('erase');
-     if(active){active.value='';active.dispatchEvent(new Event('input',{bubbles:true}));setCaret(0);}
-    }
+   t.timer=setTimeout(()=>{
+    t.timer=null;
+    if(touches.get(e.pointerId)===t&&!t.moved){t.long=true;clearDrawing();}
    },430);
-  }else{stopHold();pressKey(btn);}
+  }
  });
  dock.addEventListener('pointermove',e=>{
-  if(held&&held.id===e.pointerId&&Math.hypot(e.clientX-held.x,e.clientY-held.y)>18){
-   if(clearTimer!==null){clearTimeout(clearTimer);clearTimer=null;}
+  const t=touches.get(e.pointerId);if(!t)return;
+  if(Math.hypot(e.clientX-t.x,e.clientY-t.y)>22){
+   t.moved=true;if(t.timer!==null){clearTimeout(t.timer);t.timer=null;}
   }
  });
  dock.addEventListener('pointerup',e=>{
-  if(!held||held.id!==e.pointerId)return;
-  const wasLong=held.long,btn=held.btn;
-  stopHold();if(!wasLong)pressKey(btn);
+  const t=touches.get(e.pointerId);if(!t)return;
+  touches.delete(e.pointerId);
+  if(t.timer!==null)clearTimeout(t.timer);
+  if(!t.moved&&!t.long)pressKey(t.btn);
  });
- dock.addEventListener('pointercancel',stopHold);
+ dock.addEventListener('pointercancel',e=>{
+  const t=touches.get(e.pointerId);if(t?.timer!==null&&t?.timer!==undefined)clearTimeout(t.timer);
+  touches.delete(e.pointerId);
+ });
  dock.addEventListener('contextmenu',e=>e.preventDefault());
- // Accessibility / mouse click fallback, without duplicate touch inputs.
  dock.addEventListener('click',e=>{
   const btn=buttonAt(e.clientX,e.clientY,e.target);if(!btn)return;
-  if(Date.now()-lastPointerAt<650){e.preventDefault();return;}
+  if(Date.now()-lastPointerAt<700){e.preventDefault();return;}
   pressKey(btn);
  });
  document.addEventListener('pointerdown',e=>{if(active&&!dock.contains(e.target)&&!isDrawing(e.target))close();});
