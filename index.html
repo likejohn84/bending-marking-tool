@@ -205,7 +205,7 @@ document.addEventListener('click',e=>{
 </style>
 
 <div id="drawingDock" class="drawing-dock" hidden aria-label="도면 치수 숫자 키패드">
- <div class="drawing-dock-bar"><span>도면 치수 입력</span><button type="button" id="drawingDockDone">완료</button></div>
+ <div class="drawing-dock-bar"><span>도면 치수 입력</span><div class="drawing-dock-bar-actions"><button type="button" id="drawingDockSound" aria-label="키 입력 소리 끄기" aria-pressed="true">♪ 소리 켬</button><button type="button" id="drawingDockDone">완료</button></div></div>
  <div class="drawing-dock-tools"><button type="button" data-dock-action="left">◀ 커서</button><button type="button" data-dock-action="clear">전체 지우기</button><button type="button" data-dock-action="right">커서 ▶</button></div>
  <div class="drawing-dock-grid">
   <button type="button" data-dock-key="7">7</button><button type="button" data-dock-key="8">8</button><button type="button" data-dock-key="9">9</button>
@@ -218,7 +218,7 @@ document.addEventListener('click',e=>{
 .drawing-dock[hidden]{display:none!important}
 .drawing-dock{position:fixed;left:0;right:0;bottom:0;z-index:9000;padding:6px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:#d1d5db;color:#1c1c1e;box-shadow:0 -1px 3px #0002;box-sizing:border-box;max-height:62dvh;overflow:auto}
 .drawing-dock-bar{display:flex;align-items:center;justify-content:space-between;padding:2px 7px 8px;font-size:13px;font-weight:600}
-.drawing-dock-bar button{border:0;background:transparent;color:#007aff;font-size:16px;font-weight:650;padding:5px 9px}
+.drawing-dock-bar-actions{display:flex;align-items:center;gap:8px}.drawing-dock-bar #drawingDockSound{font-size:12px;color:#51545c;padding:5px 7px;border-radius:6px;background:#b7bec9}.drawing-dock-bar button{border:0;background:transparent;color:#007aff;font-size:16px;font-weight:650;padding:5px 9px}
 .drawing-dock-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
 .drawing-dock-grid button{height:clamp(43px,6.7dvh,53px);border:0;border-radius:5px;background:#fff;color:#111;font-size:26px;font-weight:400;box-shadow:0 1px 0 #9da3ac;touch-action:manipulation}
 .drawing-dock-grid button.special{background:#b7bec9}
@@ -229,11 +229,38 @@ document.addEventListener('click',e=>{
 body.drawing-dock-open{padding-bottom:365px!important}
 #dims,#adims{display:block;width:100%;min-width:0;max-width:100%;overflow-x:auto;white-space:nowrap;text-overflow:clip;-webkit-appearance:none;appearance:none;direction:ltr;text-align:left}
 #dims:focus,#adims:focus{outline:2px solid #0a84ff!important;caret-color:#0a84ff!important}
-@media(prefers-color-scheme:dark){.drawing-dock{background:#1c1c1e!important;color:#fff!important;box-shadow:0 -3px 18px #0006!important}.drawing-dock-grid button{background:#636366!important;color:#fff!important;box-shadow:0 1px 0 #0b0b0c!important}.drawing-dock-grid button.special,.drawing-dock-tools button{background:#48484a!important;color:#fff!important}.drawing-dock-bar button{color:#0a84ff!important}}
+@media(prefers-color-scheme:dark){.drawing-dock{background:#1c1c1e!important;color:#fff!important;box-shadow:0 -3px 18px #0006!important}.drawing-dock-grid button{background:#636366!important;color:#fff!important;box-shadow:0 1px 0 #0b0b0c!important}.drawing-dock-grid button.special,.drawing-dock-tools button{background:#48484a!important;color:#fff!important}.drawing-dock-bar button{color:#0a84ff!important}.drawing-dock-bar #drawingDockSound{background:#48484a!important;color:#fff!important}}
 </style>
 <script>
 (()=>{
  const dock=document.getElementById('drawingDock');let active=null;let savedStart=0,savedEnd=0;
+ const soundButton=document.getElementById('drawingDockSound');
+ let soundOn=true;
+ try{soundOn=localStorage.getItem('omt-key-sound')!=='off';}catch(e){}
+ const syncSoundButton=()=>{soundButton.textContent=soundOn?'♪ 소리 켬':'♪ 소리 끔';soundButton.setAttribute('aria-pressed',String(soundOn));soundButton.setAttribute('aria-label',soundOn?'키 입력 소리 끄기':'키 입력 소리 켜기');};
+ syncSoundButton();
+ let audioContext=null;
+ // Web Audio can start in a trusted touch/pointer gesture on iOS. No external audio assets needed.
+ const playKeySound=(kind)=>{
+  if(!soundOn)return;
+  try{
+   const AudioCtx=window.AudioContext||window.webkitAudioContext;
+   if(!AudioCtx)return;
+   if(!audioContext)audioContext=new AudioCtx();
+   if(audioContext.state==='suspended')audioContext.resume().catch(()=>{});
+   const now=audioContext.currentTime;
+   const osc=audioContext.createOscillator(),gain=audioContext.createGain();
+   const dash=kind==='dash', erase=kind==='erase';
+   osc.type='sine';
+   osc.frequency.setValueAtTime(dash?690:erase?480:940,now);
+   osc.frequency.exponentialRampToValueAtTime(dash?530:erase?380:760,now+0.028);
+   gain.gain.setValueAtTime(0.0001,now);
+   gain.gain.exponentialRampToValueAtTime(dash?0.045:0.029,now+0.003);
+   gain.gain.exponentialRampToValueAtTime(0.0001,now+(dash?0.065:0.043));
+   osc.connect(gain);gain.connect(audioContext.destination);
+   osc.start(now);osc.stop(now+(dash?0.068:0.046));
+  }catch(e){}
+ };
  const isDrawing=e=>e&&e.matches&&e.matches('input[data-drawing-input]');
  const capture=()=>{if(!active)return;savedStart=active.selectionStart??savedStart;savedEnd=active.selectionEnd??savedEnd;};
  const setCaret=(pos)=>{if(!active)return;const p=Math.max(0,Math.min(active.value.length,pos));savedStart=savedEnd=p;active.focus({preventScroll:true});try{active.setSelectionRange(p,p);}catch(e){};if(p===active.value.length)active.scrollLeft=active.scrollWidth;else if(p===0)active.scrollLeft=0;};
@@ -249,16 +276,19 @@ body.drawing-dock-open{padding-bottom:365px!important}
  const pressKey=(target)=>{
   const key=target.closest('[data-dock-key]'),action=target.closest('[data-dock-action]');
   if(target.closest('#drawingDockDone')){close();return;}
+  if(target.closest('#drawingDockSound')){soundOn=!soundOn;try{localStorage.setItem('omt-key-sound',soundOn?'on':'off');}catch(e){}syncSoundButton();return;}
   if(!active||(!key&&!action))return;
   let value=active.value,start=savedStart,end=savedEnd;
   if(key){
    const k=key.dataset.dockKey;
+   playKeySound(k==='-'?'dash':k==='backspace'?'erase':'digit');
    if(k==='backspace'){
     if(start===end&&start>0)start--;
     value=value.slice(0,start)+value.slice(end);
    }else{value=value.slice(0,start)+k+value.slice(end);start+=k.length;}
    active.value=value;active.dispatchEvent(new Event('input',{bubbles:true}));setCaret(start);
   }else if(action.dataset.dockAction==='clear'){
+   playKeySound('erase');
    active.value='';active.dispatchEvent(new Event('input',{bubbles:true}));setCaret(0);
   }else if(action.dataset.dockAction==='left'){setCaret(Math.max(0,start-1));}
   else if(action.dataset.dockAction==='right'){setCaret(Math.min(value.length,end+1));}
