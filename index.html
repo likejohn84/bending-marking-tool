@@ -46,13 +46,13 @@ section.card:last-of-type .pos{font-size:23px}
 #originalTab > section.card:nth-of-type(3) .stat{padding:5px}
 #originalTab > section.card:nth-of-type(3) .stat strong{font-size:13px}
 </style></head><body><main class="app"><header><h1>원마킹툴</h1><div class="creator">만든사람 이대희</div><div class="sub">도면 치수 → 밴딩 옵션 → 마킹 & 커팅</div></header>
-<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>완성 도면 치수 (점 또는 하이픈 구분)</label><input id="dims" aria-label="도면 치수, 점으로 구분" autocomplete="off" autocorrect="off" spellcheck="false" value="200-150-50-250-50-300" inputmode="decimal"></div><div class="hint">예: 200.150.50.250.300 (점으로 구분, 정수 mm)</div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 구간마다 기존 차감량에 2mm를 더합니다 (16.31 → 18.31). 첫 마킹은 유지, 둘째 −2, 셋째 −4, 커팅 −6mm. 커팅 별도 미세조정은 추가 변경할 때만 사용하며 기본 0입니다. ± 버튼은 0.5mm 단위.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
+<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>완성 도면 치수 (점 또는 하이픈 구분)</label><input id="dims" aria-label="도면 치수, 점으로 구분" autocomplete="off" autocorrect="off" spellcheck="false" value="200-150-50-250-50-300" inputmode="none" data-drawing-input="1"></div><div class="hint">예: 200.150.50.250.300 (점으로 구분, 정수 mm)</div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 구간마다 기존 차감량에 2mm를 더합니다 (16.31 → 18.31). 첫 마킹은 유지, 둘째 −2, 셋째 −4, 커팅 −6mm. 커팅 별도 미세조정은 추가 변경할 때만 사용하며 기본 0입니다. ± 버튼은 0.5mm 단위.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
 <section class="card"><div class="head">② 짧은 구간별 밴딩 설정 <span class="num" id="countshort">0개</span></div><div id="shortcards"></div></section>
 <section class="card"><div class="head">③ 전체 차감 & 전개 <span class="num">자동</span></div><div id="summary" class="hint"></div><div id="segments" class="segment-list"></div><div class="math" style="margin-top:9px"><div class="stat"><small>차감 밑변 합계</small><strong id="totalbase">—</strong></div><div class="stat"><small>계산용 전개 길이 합계</small><strong id="developed">—</strong></div></div></section>
 <section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div></section><div class="footer">시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
 <div id="angleTab" hidden>
 <section class="card"><div class="head">① 도면 치수와 지정각</div>
-<div class="field"><label>도면 치수 (예: 300.155.300)</label><input id="adims" aria-label="도면 치수, 점으로 구분" autocomplete="off" autocorrect="off" spellcheck="false" value="300-155-300" inputmode="decimal"></div>
+<div class="field"><label>도면 치수 (예: 300.155.300)</label><input id="adims" aria-label="도면 치수, 점으로 구분" autocomplete="off" autocorrect="off" spellcheck="false" value="300-155-300" inputmode="none" data-drawing-input="1"></div>
 <div class="line" style="margin-top:10px"><div class="field"><label>R (중심선 반경)</label><input id="aradius" type="number" value="38" step="0.1"></div><div class="field"><label>최소 직관 길이</label><input id="agrip" type="number" value="30" step="0.1"></div></div>
 <div class="hint">도면에 표시된 대각길이는 그대로 입력하세요. 밑변을 수동으로 더하거나 치수를 바꿀 필요가 없습니다.</div>
 <div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 구간마다 기존 차감량에 2mm를 더합니다 (16.31 → 18.31). 첫 마킹은 유지, 둘째 −2, 셋째 −4, 커팅 −6mm. 커팅 별도 미세조정은 추가 변경할 때만 사용하며 기본 0입니다. ± 버튼은 0.5mm 단위.</div><div id="angleInputs"></div></section>
@@ -70,7 +70,7 @@ section.card:last-of-type .pos{font-size:23px}
 <script>
 const anglePrefs={};
 function angleRender(){
- const ds=document.getElementById('adims').value.trim().split(/[-,\\s]+/).filter(Boolean).map(Number);
+ const ds=document.getElementById('adims').value.trim().split(/[.\-,\s]+/).filter(Boolean).map(Number);
  const r=Number(document.getElementById('aradius').value),g=Number(document.getElementById('agrip').value);
  const panel=document.getElementById('angleInputs'),out=document.getElementById('angleMarks');
  const cm=Number(document.getElementById('acorrM').value),cc=Number(document.getElementById('acorrC').value);
@@ -203,4 +203,67 @@ document.addEventListener('click',e=>{
 <style>
 #dims,#adims{caret-color:#0a84ff!important;-webkit-user-select:text!important;user-select:text!important}
 </style>
+
+<div id="drawingDock" class="drawing-dock" hidden aria-label="도면 치수 숫자 키패드">
+ <div class="drawing-dock-bar"><span>도면 치수 입력</span><button type="button" id="drawingDockDone">완료</button></div>
+ <div class="drawing-dock-grid">
+  <button type="button" data-dock-key="7">7</button><button type="button" data-dock-key="8">8</button><button type="button" data-dock-key="9">9</button>
+  <button type="button" data-dock-key="4">4</button><button type="button" data-dock-key="5">5</button><button type="button" data-dock-key="6">6</button>
+  <button type="button" data-dock-key="1">1</button><button type="button" data-dock-key="2">2</button><button type="button" data-dock-key="3">3</button>
+  <button type="button" class="special" data-dock-key="-">−</button><button type="button" data-dock-key="0">0</button><button type="button" class="special" data-dock-key="backspace" aria-label="한 글자 지우기">⌫</button>
+ </div>
+ <div class="drawing-dock-tools"><button type="button" data-dock-action="left">◀ 커서</button><button type="button" data-dock-action="clear">전체 지우기</button><button type="button" data-dock-action="right">커서 ▶</button></div>
+</div>
+<style id="drawing-dock-v17">
+.drawing-dock[hidden]{display:none!important}
+.drawing-dock{position:fixed;left:0;right:0;bottom:0;z-index:9000;padding:6px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:#d1d5db;color:#1c1c1e;box-shadow:0 -1px 3px #0002;box-sizing:border-box;max-height:62dvh;overflow:auto}
+.drawing-dock-bar{display:flex;align-items:center;justify-content:space-between;padding:2px 7px 8px;font-size:13px;font-weight:600}
+.drawing-dock-bar button{border:0;background:transparent;color:#007aff;font-size:16px;font-weight:650;padding:5px 9px}
+.drawing-dock-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.drawing-dock-grid button{height:clamp(43px,6.7dvh,53px);border:0;border-radius:5px;background:#fff;color:#111;font-size:26px;font-weight:400;box-shadow:0 1px 0 #9da3ac;touch-action:manipulation}
+.drawing-dock-grid button.special{background:#b7bec9}
+.drawing-dock-grid button:active{filter:brightness(.87)}
+.drawing-dock-tools{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:6px;margin-top:7px}
+.drawing-dock-tools button{min-height:34px;border:0;border-radius:6px;background:#b7bec9;color:#1c1c1e;font-size:13px;touch-action:manipulation}
+body.drawing-dock-open{padding-bottom:365px!important}
+#dims:focus,#adims:focus{outline:2px solid #0a84ff!important;caret-color:#0a84ff!important}
+@media(prefers-color-scheme:dark){.drawing-dock{background:#1c1c1e!important;color:#fff!important;box-shadow:0 -3px 18px #0006!important}.drawing-dock-grid button{background:#636366!important;color:#fff!important;box-shadow:0 1px 0 #0b0b0c!important}.drawing-dock-grid button.special,.drawing-dock-tools button{background:#48484a!important;color:#fff!important}.drawing-dock-bar button{color:#0a84ff!important}}
+</style>
+<script>
+(()=>{
+ const dock=document.getElementById('drawingDock');let active=null;let savedStart=0,savedEnd=0;
+ const isDrawing=e=>e&&e.matches&&e.matches('input[data-drawing-input]');
+ const capture=()=>{if(!active)return;savedStart=active.selectionStart??savedStart;savedEnd=active.selectionEnd??savedEnd;};
+ const setCaret=(pos)=>{if(!active)return;const p=Math.max(0,Math.min(active.value.length,pos));savedStart=savedEnd=p;active.focus({preventScroll:true});try{active.setSelectionRange(p,p);}catch(e){}};
+ const open=(el)=>{active=el;dock.hidden=false;document.body.classList.add('drawing-dock-open');capture();};
+ const close=()=>{dock.hidden=true;document.body.classList.remove('drawing-dock-open');if(active)active.blur();active=null;};
+ document.querySelectorAll('input[data-drawing-input]').forEach(el=>{
+  el.addEventListener('focus',()=>open(el));
+  el.addEventListener('click',capture);
+  el.addEventListener('keyup',capture);
+  el.addEventListener('select',capture);
+ });
+ // Keep focus on the real input and its native caret, rather than an overlay input.
+ dock.addEventListener('pointerdown',e=>{if(e.target.closest('button'))e.preventDefault();});
+ dock.addEventListener('click',e=>{
+  const key=e.target.closest('[data-dock-key]'),action=e.target.closest('[data-dock-action]');
+  if(e.target.closest('#drawingDockDone')){close();return;}
+  if(!active||(!key&&!action))return;
+  let value=active.value,start=savedStart,end=savedEnd;
+  if(key){
+   const k=key.dataset.dockKey;
+   if(k==='backspace'){
+    if(start===end&&start>0)start--;
+    value=value.slice(0,start)+value.slice(end);
+   }else{value=value.slice(0,start)+k+value.slice(end);start+=k.length;}
+   active.value=value;active.dispatchEvent(new Event('input',{bubbles:true}));setCaret(start);
+  }else if(action.dataset.dockAction==='clear'){
+   active.value='';active.dispatchEvent(new Event('input',{bubbles:true}));setCaret(0);
+  }else if(action.dataset.dockAction==='left'){setCaret(Math.max(0,start-1));}
+  else if(action.dataset.dockAction==='right'){setCaret(Math.min(value.length,end+1));}
+ });
+ document.addEventListener('pointerdown',e=>{if(active&&!dock.contains(e.target)&&!isDrawing(e.target))close();});
+ document.querySelectorAll('.tabs button').forEach(el=>el.addEventListener('click',close));
+})();
+</script>
 </body></html>
