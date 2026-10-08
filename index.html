@@ -46,7 +46,7 @@ section.card:last-of-type .pos{font-size:23px}
 #originalTab > section.card:nth-of-type(3) .stat{padding:5px}
 #originalTab > section.card:nth-of-type(3) .stat strong{font-size:13px}
 </style></head><body><main class="app"><header><h1>원마킹툴</h1><div class="creator">만든사람 이대희</div><div class="sub">도면 치수 → 밴딩 옵션 → 마킹 & 커팅</div></header>
-<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>완성 도면 치수 (하이픈 구분)</label><input id="dims" value="200-150-50-250-50-300" inputmode="text"></div><div class="hint">예: 200-150-50-250-300</div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
+<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>완성 도면 치수 (하이픈 구분)</label><input id="dims" value="200-150-50-250-50-300" inputmode="text"></div><div class="hint">예: 200-150-50-250-300</div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>중간 마킹 차감 보정 (mm)</label><input id="corrM" type="number" value="0" step="0.01" inputmode="decimal"></div><div class="field"><label>커팅 가산 보정 (mm)</label><input id="corrC" type="number" value="0" step="0.01" inputmode="decimal"></div></div><div class="hint">예: 중간 16.31→18.31이면 +2, 커팅 21.69→19.69이면 −2. 0은 기존 계산 그대로.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
 <section class="card"><div class="head">② 짧은 구간별 밴딩 설정 <span class="num" id="countshort">0개</span></div><div id="shortcards"></div></section>
 <section class="card"><div class="head">③ 전체 차감 & 전개 <span class="num">자동</span></div><div id="summary" class="hint"></div><div id="segments" class="segment-list"></div><div class="math" style="margin-top:9px"><div class="stat"><small>차감 밑변 합계</small><strong id="totalbase">—</strong></div><div class="stat"><small>계산용 전개 길이 합계</small><strong id="developed">—</strong></div></div></section>
 <section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div></section><div class="footer">시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
@@ -55,7 +55,7 @@ section.card:last-of-type .pos{font-size:23px}
 <div class="field"><label>도면 치수 (예: 300-155-300)</label><input id="adims" value="300-155-300" inputmode="text"></div>
 <div class="line" style="margin-top:10px"><div class="field"><label>R (중심선 반경)</label><input id="aradius" type="number" value="38" step="0.1"></div><div class="field"><label>최소 직관 길이</label><input id="agrip" type="number" value="30" step="0.1"></div></div>
 <div class="hint">도면에 표시된 대각길이는 그대로 입력하세요. 밑변을 수동으로 더하거나 치수를 바꿀 필요가 없습니다.</div>
-<div id="angleInputs"></div></section>
+<div class="line" style="margin-top:9px"><div class="field"><label>중간 마킹 차감 보정 (mm)</label><input id="acorrM" type="number" value="0" step="0.01" inputmode="decimal"></div><div class="field"><label>커팅 가산 보정 (mm)</label><input id="acorrC" type="number" value="0" step="0.01" inputmode="decimal"></div></div><div class="hint">예: 중간 16.31→18.31이면 +2, 커팅 21.69→19.69이면 −2. 0은 기존 계산 그대로.</div><div id="angleInputs"></div></section>
 <section class="card"><div class="head">② 마킹 & 커팅 <span class="num">0점 기준</span></div><div id="angleMarks"></div></section>
 <div class="footer">지정각 탭은 각 구간 치수를 이론상 교점 간 중심선 치수로 해석합니다. 벤더별 마킹 기준과 실제 직관 최소값을 검증한 뒤 작업에 사용하세요.</div>
 </div></main>
@@ -73,6 +73,8 @@ function angleRender(){
  const ds=document.getElementById('adims').value.trim().split(/[-,\\s]+/).filter(Boolean).map(Number);
  const r=Number(document.getElementById('aradius').value),g=Number(document.getElementById('agrip').value);
  const panel=document.getElementById('angleInputs'),out=document.getElementById('angleMarks');
+ const cm=Number(document.getElementById('acorrM').value),cc=Number(document.getElementById('acorrC').value);
+ if(!Number.isFinite(cm)||!Number.isFinite(cc)){out.innerHTML='<div class="warning">보정값을 확인하세요.</div>';return;}
  if(ds.length<2||ds.some(x=>!Number.isFinite(x)||x<=0)||!Number.isFinite(r)||r<=0||!Number.isFinite(g)||g<0){
   panel.innerHTML='';out.innerHTML='<div class="warning">치수·R·최소 직관 길이를 확인해 주세요.</div>';return;
  }
@@ -91,7 +93,9 @@ function angleRender(){
  const cut=cur+arc(angles.at(-1))+ds.at(-1)-sb(angles.at(-1));
  if(marks.some((m,i)=>!Number.isFinite(m)||(i>0&&m<=marks[i-1]))||!Number.isFinite(cut)||cut<=marks.at(-1)){
  out.innerHTML='<div class="warning">⚠ 마킹 간격 오류 · 결과 출력 중단</div>';return;}
- out.innerHTML=marks.map((m,i)=>`<div class="mark"><div class="pill">${i+1}</div><div class="pos">${m.toFixed(2)} <small>mm</small></div><div class="kind">${angles[i]}° 밴딩</div></div>`).join('')+`<div class="mark cut"><div class="pill">커팅</div><div class="pos">${cut.toFixed(2)} <small>mm</small></div><div class="kind">절단 위치</div></div>`;
+ const corrected=marks.map((m,i)=>i===0?m:m-cm), correctedCut=cut+cc;
+ if(corrected.some((m,i)=>i>0&&m<=corrected[i-1])||correctedCut<=corrected.at(-1)){out.innerHTML='<div class="warning">보정 후 마킹 간격이 부족합니다.</div>';return;}
+ out.innerHTML=corrected.map((m,i)=>`<div class="mark"><div class="pill">${i+1}</div><div class="pos">${m.toFixed(2)} <small>mm</small></div><div class="kind">${angles[i]}° 밴딩</div></div>`).join('')+`<div class="mark cut"><div class="pill">커팅</div><div class="pos">${correctedCut.toFixed(2)} <small>mm</small></div><div class="kind">절단 위치</div></div>`;
 }
 document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
@@ -99,7 +103,7 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
  document.getElementById('angleTab').hidden=b.dataset.tab!=='angle';
  if(b.dataset.tab==='angle')angleRender();
 }));
-['adims','aradius','agrip'].forEach(id=>document.getElementById(id).addEventListener('input',angleRender));
+['adims','aradius','agrip','acorrM','acorrC'].forEach(id=>document.getElementById(id).addEventListener('input',angleRender));
 document.getElementById('angleInputs').addEventListener('input',e=>{
  if(!e.target.matches('[data-bend]'))return;
  const i=+e.target.dataset.bend;anglePrefs[i]=e.target.value;
@@ -121,7 +125,8 @@ const parseDims=v=>v.trim().split(/[-,\s]+/).filter(Boolean).map(Number);
 function getConfig(idx,order){if(!config.has(idx))config.set(idx,{mode:order===0?1:0,split:.5,auto:true,angle:38});return config.get(idx);}
 function render(){
 const ds=parseDims(el('dims').value),r=+el('radius').value,g=+el('grip').value,minimum=+el('minimum').value;
-const valid=ds.length>=3&&ds.every(n=>Number.isFinite(n)&&n>0)&&r>0&&g>=0&&minimum>0;
+const cm=+el('corrM').value,cc=+el('corrC').value;
+const valid=ds.length>=3&&ds.every(n=>Number.isFinite(n)&&n>0)&&r>0&&g>=0&&minimum>0&&Number.isFinite(cm)&&Number.isFinite(cc);
 if(!valid){el('warn').textContent='도면을 3개 이상 구간으로 입력하고 R·물림·최소값을 확인해 주세요.';el('shortcards').innerHTML='';el('marks').innerHTML='';el('segments').innerHTML='';return;}
 const shortIndices=ds.map((n,i)=>i>0&&i<ds.length-1&&n<minimum?i:-1).filter(i=>i>=0);
 const validSet=new Set(shortIndices);for(const idx of config.keys())if(!validSet.has(idx))config.delete(idx);
@@ -169,10 +174,12 @@ let cur=lens[0]-setback(r,angles[0]);const marks=[{p:cur,a:angles[0]}];
 for(let i=1;i<angles.length;i++){cur+=arc(r,angles[i-1])+lens[i]-setback(r,angles[i-1])-setback(r,angles[i]);marks.push({p:cur,a:angles[i]});}
 const cut=cur+arc(r,angles.at(-1))+lens.at(-1)-setback(r,angles.at(-1));
 if(marks.some((m,i)=>!Number.isFinite(m.p)||(i&&m.p<=marks[i-1].p))||!Number.isFinite(cut)||cut<=marks.at(-1).p){el('marks').innerHTML='<div class="warning">⚠ 전개 마킹이 겹치거나 순서가 역전되었습니다. 구간과 물림 조건을 검토하세요.</div>';return;}
-el('marks').innerHTML=marks.map((m,i)=>`<div class="mark"><div class="pill">${i+1}</div><div class="pos">${fmt(m.p)} <small>mm</small></div><div class="kind">${fmt(m.a,m.a===90?0:2)}° 밴딩</div></div>`).join('')+`<div class="mark cut"><div class="pill">커팅</div><div class="pos">${fmt(cut)} <small>mm</small></div><div class="kind">절단 위치</div></div>`;
+const correctedMarks=marks.map((m,i)=>({...m,p:i===0?m.p:m.p-cm})),correctedCut=cut+cc;
+if(correctedMarks.some((m,i)=>i>0&&m.p<=correctedMarks[i-1].p)||correctedCut<=correctedMarks.at(-1).p){el('marks').innerHTML='<div class="warning">⚠ 보정 후 마킹 간격이 부족합니다.</div>';return;}
+el('marks').innerHTML=correctedMarks.map((m,i)=>`<div class="mark"><div class="pill">${i+1}</div><div class="pos">${fmt(m.p)} <small>mm</small></div><div class="kind">${fmt(m.a,m.a===90?0:2)}° 밴딩</div></div>`).join('')+`<div class="mark cut"><div class="pill">커팅</div><div class="pos">${fmt(correctedCut)} <small>mm</small></div><div class="kind">절단 위치</div></div>`;
 }
 // Event delegation survives re-rendered short-segment cards.
 el('shortcards').addEventListener('click',e=>{const btn=e.target.closest('button[data-idx]');if(!btn)return;const cfg=config.get(+btn.dataset.idx);if('mode'in btn.dataset){cfg.mode=+btn.dataset.mode;cfg.auto=true;}if('split'in btn.dataset)cfg.split=+btn.dataset.split;render();});
 el('shortcards').addEventListener('input',e=>{if(!e.target.matches('input[data-angle]'))return;const cfg=config.get(+e.target.dataset.idx);cfg.auto=false;cfg.angle=+e.target.value;const focusIdx=+e.target.dataset.idx;render();const next=el('shortcards').querySelector(`input[data-angle][data-idx="${focusIdx}"]`);if(next){next.focus();}});
-['dims','radius','grip','minimum'].forEach(id=>el(id).addEventListener('input',render));render();
+['dims','radius','grip','minimum','corrM','corrC'].forEach(id=>el(id).addEventListener('input',render));render();
 </script><script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}</script></body></html>
