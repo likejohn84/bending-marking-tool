@@ -1,4 +1,4 @@
-const CACHE='one-marking-tool-offline-v9';
+const CACHE='one-marking-tool-offline-v10';
 const ASSETS=['./','./index.html','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',event=>{event.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('one-marking-tool-offline-')&&key!==CACHE).map(key=>caches.delete(key)))),self.clients.claim()]));});

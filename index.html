@@ -46,13 +46,13 @@ section.card:last-of-type .pos{font-size:23px}
 #originalTab > section.card:nth-of-type(3) .stat{padding:5px}
 #originalTab > section.card:nth-of-type(3) .stat strong{font-size:13px}
 </style></head><body><main class="app"><header><h1>원마킹툴</h1><div class="creator">만든사람 이대희</div><div class="sub">도면 치수 → 밴딩 옵션 → 마킹 & 커팅</div></header>
-<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>완성 도면 치수 (하이픈 구분)</label><input id="dims" value="200-150-50-250-50-300" inputmode="text"></div><div class="hint">예: 200-150-50-250-300</div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 구간마다 기존 차감량에 2mm를 더합니다 (16.31 → 18.31). 첫 마킹은 유지, 둘째 −2, 셋째 −4, 커팅 −6mm. 커팅 별도 미세조정은 추가 변경할 때만 사용하며 기본 0입니다. ± 버튼은 0.5mm 단위.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
+<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>완성 도면 치수 (하이픈 구분)</label><input id="dims" readonly aria-label="도면 치수 전용 키패드 열기" value="200-150-50-250-50-300" inputmode="text"></div><div class="hint">예: 200-150-50-250-300</div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 구간마다 기존 차감량에 2mm를 더합니다 (16.31 → 18.31). 첫 마킹은 유지, 둘째 −2, 셋째 −4, 커팅 −6mm. 커팅 별도 미세조정은 추가 변경할 때만 사용하며 기본 0입니다. ± 버튼은 0.5mm 단위.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
 <section class="card"><div class="head">② 짧은 구간별 밴딩 설정 <span class="num" id="countshort">0개</span></div><div id="shortcards"></div></section>
 <section class="card"><div class="head">③ 전체 차감 & 전개 <span class="num">자동</span></div><div id="summary" class="hint"></div><div id="segments" class="segment-list"></div><div class="math" style="margin-top:9px"><div class="stat"><small>차감 밑변 합계</small><strong id="totalbase">—</strong></div><div class="stat"><small>계산용 전개 길이 합계</small><strong id="developed">—</strong></div></div></section>
 <section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div></section><div class="footer">시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
 <div id="angleTab" hidden>
 <section class="card"><div class="head">① 도면 치수와 지정각</div>
-<div class="field"><label>도면 치수 (예: 300-155-300)</label><input id="adims" value="300-155-300" inputmode="text"></div>
+<div class="field"><label>도면 치수 (예: 300-155-300)</label><input id="adims" readonly aria-label="도면 치수 전용 키패드 열기" value="300-155-300" inputmode="text"></div>
 <div class="line" style="margin-top:10px"><div class="field"><label>R (중심선 반경)</label><input id="aradius" type="number" value="38" step="0.1"></div><div class="field"><label>최소 직관 길이</label><input id="agrip" type="number" value="30" step="0.1"></div></div>
 <div class="hint">도면에 표시된 대각길이는 그대로 입력하세요. 밑변을 수동으로 더하거나 치수를 바꿀 필요가 없습니다.</div>
 <div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 구간마다 기존 차감량에 2mm를 더합니다 (16.31 → 18.31). 첫 마킹은 유지, 둘째 −2, 셋째 −4, 커팅 −6mm. 커팅 별도 미세조정은 추가 변경할 때만 사용하며 기본 0입니다. ± 버튼은 0.5mm 단위.</div><div id="angleInputs"></div></section>
@@ -198,5 +198,57 @@ document.addEventListener('click',e=>{
  input.value=String(next);
  input.dispatchEvent(new Event('input',{bubbles:true}));
 });
+</script>
+
+<style>
+.drawing-keypad-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:9998}
+.drawing-keypad{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#142238;color:#fff;padding:12px max(14px,env(safe-area-inset-right)) calc(14px + env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));border-radius:18px 18px 0 0;box-shadow:0 -6px 30px #0008;max-width:550px;margin:auto}
+.drawing-keypad[hidden],.drawing-keypad-backdrop[hidden]{display:none!important}
+.drawing-keypad-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px}
+.drawing-keypad-display{font-size:19px;font-weight:800;letter-spacing:.4px;overflow-wrap:anywhere;min-height:40px;background:#223752;padding:10px;border-radius:9px;margin-bottom:9px}
+.drawing-keypad-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.drawing-keypad-grid button{min-height:52px;background:#2d4260;color:#fff;border:1px solid #506581;border-radius:11px;font-size:23px;font-weight:750;touch-action:manipulation}
+.drawing-keypad-grid button.key-hyphen{background:#155f9e}
+.drawing-keypad-top button{background:#1678bd;color:white;border:0;border-radius:9px;padding:10px 16px;font-size:15px;font-weight:750}
+#dims[readonly],#adims[readonly]{cursor:pointer}
+</style>
+<div class="drawing-keypad-backdrop" id="drawingKeypadBackdrop" hidden></div>
+<div class="drawing-keypad" id="drawingKeypad" role="dialog" aria-modal="true" aria-label="도면 치수 전용 키패드" hidden>
+ <div class="drawing-keypad-top"><strong>도면 치수 입력 (mm)</strong><button type="button" id="drawingKeypadDone">완료 ✓</button></div>
+ <div class="drawing-keypad-display" id="drawingKeypadDisplay" aria-live="polite"></div>
+ <div class="drawing-keypad-grid">
+ <button type="button" data-key="1">1</button><button type="button" data-key="2">2</button><button type="button" data-key="3">3</button>
+ <button type="button" data-key="4">4</button><button type="button" data-key="5">5</button><button type="button" data-key="6">6</button>
+ <button type="button" data-key="7">7</button><button type="button" data-key="8">8</button><button type="button" data-key="9">9</button>
+ <button type="button" data-key="-" class="key-hyphen">−</button><button type="button" data-key="0">0</button><button type="button" data-key="back">⌫</button>
+ <button type="button" data-key="clear" style="grid-column:span 3;font-size:16px;min-height:42px">전체 지우기</button>
+ </div>
+</div>
+<script>
+(()=>{
+ const modal=document.getElementById('drawingKeypad'),shade=document.getElementById('drawingKeypadBackdrop'),display=document.getElementById('drawingKeypadDisplay');
+ let active=null,caret=0;
+ const sync=()=>{display.textContent=active?.value||'치수를 입력하세요';};
+ function close(){modal.hidden=true;shade.hidden=true;if(active){active.blur();active=null;}}
+ for(const id of ['dims','adims']){
+  const el=document.getElementById(id);
+  el.addEventListener('click',()=>{active=el;caret=el.selectionStart??el.value.length;modal.hidden=false;shade.hidden=false;sync();});
+  el.addEventListener('focus',()=>{if(modal.hidden){active=el;caret=el.selectionStart??el.value.length;modal.hidden=false;shade.hidden=false;sync();}});
+ }
+ modal.addEventListener('click',e=>{
+  const b=e.target.closest('button[data-key]');if(!b||!active)return;
+  const key=b.dataset.key,v=active.value;
+  if(key==='clear'){active.value='';caret=0;}
+  else if(key==='back'){if(caret>0){active.value=v.slice(0,caret-1)+v.slice(caret);caret--;}}
+  else if(key==='-'){
+   // Avoid accidental duplicate separators; allow deleting and re-entering a section.
+   if(caret>0&&v[caret-1]!=='-'&&v[caret]!=='-'){active.value=v.slice(0,caret)+'-'+v.slice(caret);caret++;}
+  }else{active.value=v.slice(0,caret)+key+v.slice(caret);caret++;}
+  active.dispatchEvent(new Event('input',{bubbles:true}));sync();
+ });
+ document.getElementById('drawingKeypadDone').addEventListener('click',close);
+ shade.addEventListener('click',close);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)close();});
+})();
 </script>
 </body></html>
