@@ -303,4 +303,36 @@ document.addEventListener('click',e=>{
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)close();});
 })();
 </script>
-</body></html>
+<style id="system-theme-fix-v13">
+:root{color-scheme:light}
+@media(prefers-color-scheme:light){
+ :root{background:#f3f5fa;color:#1a273a}
+ body{background:#f3f5fa;color:#1a273a}
+ .card{background:#fff;border-color:#dce3ee}
+ .creator,.sub,.muted,.footer,.field label,.hint,.note,.kind,small{color:#52627a}
+ input,.short-card,.stat,.mode,.split button{background:#f5f7fc;color:#1a273a;border-color:#cbd5e4}
+ .segline,.mark{border-color:#dbe2ed}
+ .pill,.num{background:#e4ebf7;color:#28415f}
+ .cut{background:#e2f6ec}
+ .cut .pill{background:#c8eada;color:#176b50}
+ .cut .pos{color:#176b50}
+ .tabs .tab:not(.active){background:#e9edf5;color:#344761;border-color:#cbd5e4}
+ .drawing-keypad{background:#d1d5df;color:#1b1c20}
+ .drawing-keypad-top button{color:#087aff}
+ .drawing-keypad-display{background:#fff;color:#15171b;border-color:#aeb5c2}
+ .drawing-keypad-tools button{background:#b7becb;color:#252b35}
+ .drawing-keypad-grid button{background:#fff;color:#16171a;box-shadow:0 1px 0 #9199a7}
+ .drawing-keypad-grid button.key-special,.drawing-keypad-grid button.key-clear{background:#b7bfcc;color:#16171a}
+}
+@media(prefers-color-scheme:dark){
+ :root{color-scheme:dark;background:#0b1323;color:#e9effc}
+ body{background:#0b1323;color:#e9effc}
+ .drawing-keypad{background:#1c1c1e!important;color:#f5f5f7!important;box-shadow:0 -4px 24px #0009!important}
+ .drawing-keypad-top button{color:#0a84ff!important}
+ .drawing-keypad-display{background:#2c2c2e!important;color:#fff!important;border-color:#545458!important;caret-color:#0a84ff!important}
+ .drawing-keypad-tools button{background:#48484a!important;color:#fff!important}
+ .drawing-keypad-grid button{background:#636366!important;color:#fff!important;box-shadow:0 1px 0 #101012!important}
+ .drawing-keypad-grid button:active{background:#85858a!important}
+ .drawing-keypad-grid button.key-special,.drawing-keypad-grid button.key-clear{background:#48484a!important;color:#fff!important}
+}
+</style></body></html>
