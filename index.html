@@ -262,15 +262,18 @@ body.drawing-dock-open{padding-bottom:365px!important}
   }catch(e){}
  };
  const isDrawing=e=>e&&e.matches&&e.matches('input[data-drawing-input]');
- const capture=()=>{if(!active)return;savedStart=active.selectionStart??savedStart;savedEnd=active.selectionEnd??savedEnd;};
- const setCaret=(pos)=>{if(!active)return;const p=Math.max(0,Math.min(active.value.length,pos));savedStart=savedEnd=p;active.focus({preventScroll:true});try{active.setSelectionRange(p,p);}catch(e){};if(p===active.value.length)active.scrollLeft=active.scrollWidth;else if(p===0)active.scrollLeft=0;};
- const open=(el)=>{active=el;dock.hidden=false;document.body.classList.add('drawing-dock-open');capture();};
+ const capture=()=>{if(!active)return;const a=active.selectionStart,b=active.selectionEnd;if(Number.isInteger(a)&&Number.isInteger(b)){savedStart=a;savedEnd=b;}};
+ let restoringCaret=false;
+ const setCaret=(pos)=>{if(!active)return;const p=Math.max(0,Math.min(active.value.length,pos));savedStart=savedEnd=p;restoringCaret=true;try{if(document.activeElement!==active)active.focus({preventScroll:true});active.setSelectionRange(p,p);}catch(e){}finally{restoringCaret=false;}if(p===active.value.length)active.scrollLeft=active.scrollWidth;else if(p===0)active.scrollLeft=0;};
+ const open=(el)=>{if(active!==el){active=el;capture();}dock.hidden=false;document.body.classList.add('drawing-dock-open');};
  const close=()=>{dock.hidden=true;document.body.classList.remove('drawing-dock-open');if(active)active.blur();active=null;};
  document.querySelectorAll('input[data-drawing-input]').forEach(el=>{
   el.addEventListener('focus',()=>open(el));
-  el.addEventListener('click',capture);
-  el.addEventListener('keyup',capture);
-  el.addEventListener('select',capture);
+  // Only genuine user interactions may update the saved insertion position.
+  // iOS fires asynchronous 'select' events during setSelectionRange: never capture those.
+  el.addEventListener('pointerup',()=>{if(active===el&&!restoringCaret)capture();});
+  el.addEventListener('keyup',()=>{if(active===el&&!restoringCaret)capture();});
+  el.addEventListener('click',e=>{if(e.isTrusted&&active===el&&!restoringCaret)capture();});
  });
  // Keep focus on the real input and its native caret, rather than an overlay input.
  const pressKey=(target)=>{
