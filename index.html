@@ -85,10 +85,10 @@ input:focus{border-color:#ffd13f!important;box-shadow:0 0 0 1px #ffd13f55!import
 #drawingDockDone{background:#ffd13f!important;color:#171717!important}
 #drawingDockSound{color:#ffd13f!important}
 </style></head><body><main class="app"><header><h1>올마킹툴</h1><div class="creator">만든사람 이대희</div></header>
-<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button><button class="tab" data-tab="logs" type="button">③ 작업 로그</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>도면 치수</label><input id="dims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="200.150.50.250.50.300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="dimension-mode-row"><button type="button" class="dimension-mode-btn active" data-dimension-mode="dot">. 점</button><button type="button" class="dimension-mode-btn" data-dimension-mode="hyphen">− 하이픈</button><button type="button" class="native-input-done" data-done-for="dims">완료</button></div><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="dims" aria-label="하이픈 구간 구분 입력" hidden>− 구간 구분</button></div></div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소 (R + 최소물림)</label><input id="minimum" type="number" value="68" step="0.1" readonly aria-label="90도 90도 최소값 자동 계산"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 68mm 미달</div></section>
+<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button><button class="tab" data-tab="logs" type="button">③ 작업 로그</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>도면 치수</label><input id="dims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="200.150.50.250.50.300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="dimension-mode-row"><button type="button" class="dimension-mode-btn active" data-dimension-mode="dot">. 점</button><button type="button" class="dimension-mode-btn" data-dimension-mode="hyphen">− 하이픈</button><button type="button" class="native-input-done" data-done-for="dims">완료</button></div><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="dims" aria-label="하이픈 구간 구분 입력" hidden>− 구간 구분</button></div></div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="106" step="0.1" aria-label="90도 90도 최소값 수정 가능"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 68mm 미달</div></section>
 <section class="card"><div class="head">② 짧은 구간별 밴딩 설정 <span class="num" id="countshort">0개</span></div><div id="shortcards"></div></section>
 <section class="card"><details class="segment-details"><summary class="head">③ 구간별 실제길이 <span class="segment-chevron" aria-hidden="true">⌄</span></summary><div id="summary" class="hint"></div><div id="segments" class="segment-list"></div><div class="math" style="margin-top:9px"><div class="stat"><small>차감 밑변 합계</small><strong id="totalbase">—</strong></div><div class="stat"><small>계산용 전개 길이 합계</small><strong id="developed">—</strong></div></div></details></section>
-<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div><button type="button" class="save-result" data-save-result="original">＋ 이 결과 로그에 저장</button></section><div class="footer">v39 · 시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
+<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div><button type="button" class="save-result" data-save-result="original">＋ 이 결과 로그에 저장</button></section><div class="footer">v40 · 시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
 <div id="angleTab" hidden>
 <section class="card"><div class="head">① 도면 치수와 지정각</div>
 <div class="field"><label>도면 치수</label><input id="adims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="300.155.300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="dimension-mode-row"><button type="button" class="dimension-mode-btn active" data-dimension-mode="dot">. 점</button><button type="button" class="dimension-mode-btn" data-dimension-mode="hyphen">− 하이픈</button><button type="button" class="native-input-done" data-done-for="adims">완료</button></div><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="adims" aria-label="하이픈 구간 구분 입력" hidden>− 구간 구분</button></div></div>
@@ -96,7 +96,7 @@ input:focus{border-color:#ffd13f!important;box-shadow:0 0 0 1px #ffd13f55!import
 <div class="hint">도면에 표시된 대각길이는 그대로 입력하세요. 밑변을 수동으로 더하거나 치수를 바꿀 필요가 없습니다.</div>
 <div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="angleInputs"></div></section>
 <section class="card"><div class="head">② 마킹 & 커팅 <span class="num">0점 기준</span></div><div id="angleMarks"></div><button type="button" class="save-result" data-save-result="angle">＋ 이 결과 로그에 저장</button></section>
-<div class="footer">v39 · 지정각 탭은 각 구간 치수를 이론상 교점 간 중심선 치수로 해석합니다. 벤더별 마킹 기준과 실제 직관 최소값을 검증한 뒤 작업에 사용하세요.</div>
+<div class="footer">v40 · 지정각 탭은 각 구간 치수를 이론상 교점 간 중심선 치수로 해석합니다. 벤더별 마킹 기준과 실제 직관 최소값을 검증한 뒤 작업에 사용하세요.</div>
 </div>
 <section id="logsTab" hidden>
  <section class="card"><div class="head">장비별 작업 로그 <span class="num" id="logCount">0건</span></div>
@@ -499,26 +499,33 @@ document.addEventListener('click',e=>{
 })();
 </script>
 
-<style id="all-marking-v39">
-#minimum[readonly]{background:#26282a;color:#ffd13f;border-color:#6e612d;opacity:1;-webkit-text-fill-color:#ffd13f}
+<style id="all-marking-v40">
+#minimum{background:#111315;color:#ffd13f;border-color:#6e612d;opacity:1;-webkit-text-fill-color:#ffd13f}
+#originalTab > section.card:first-child > .line:first-of-type{align-items:end}
+#originalTab > section.card:first-child > .line:first-of-type > .field{min-width:0}
+#originalTab > section.card:first-child > .line:first-of-type > .field label{min-height:2.4em;display:flex;align-items:flex-end;line-height:1.2}
+#originalTab > section.card:first-child > .line:first-of-type > .field input{width:100%;box-sizing:border-box}
 </style>
-<script id="all-marking-settings-v39">
+<script id="all-marking-settings-v40">
 (()=>{
  'use strict';
  const KEY='omt-last-inputs-v39';
- const ids=['dims','radius','grip','corrM','corrC','adims','aradius','agrip','acorrM','acorrC'];
+ const ids=['dims','radius','grip','minimum','corrM','corrC','adims','aradius','agrip','acorrM','acorrC'];
  const $=id=>document.getElementById(id);
+ let minimumManual=false;
  const updateMinimum=()=>{
    const r=Number($('radius').value),g=Number($('grip').value);
-   $('minimum').value=Number.isFinite(r)&&Number.isFinite(g)&&r>0&&g>=0?String(Math.round((r+g)*10000)/10000):'';
+   $('minimum').value=Number.isFinite(r)&&Number.isFinite(g)&&r>0&&g>=0?String(Math.round((2*r+g)*10000)/10000):'';
  };
+ document.getElementById('minimum').addEventListener('input',()=>{minimumManual=true;});
  // Capture phase: recalculate the derived minimum before the original render handler.
  document.addEventListener('input',e=>{
-   if(e.target&&(['radius','grip'].includes(e.target.id)))updateMinimum();
+   if(e.target&&(['radius','grip'].includes(e.target.id))){minimumManual=false;updateMinimum();}
  },true);
  let saved=null;
  try{saved=JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){}
  if(saved&&typeof saved==='object'){
+   minimumManual=!!saved.minimumManual;
    // Switch using the existing mode control so button appearance and separators stay synchronized.
    if(saved.mode==='hyphen')document.querySelector('[data-dimension-mode="hyphen"]')?.click();
    if(saved.values&&typeof saved.values==='object')for(const id of ids){
@@ -528,7 +535,7 @@ document.addEventListener('click',e=>{
      if(/^\d+$/.test(key)&&Number(key)<200)anglePrefs[key]=value;
    }
  }
- updateMinimum();
+ if(!minimumManual)updateMinimum();
  render();angleRender();
  if(saved&&Array.isArray(saved.shortBends)){
    for(const [idx,c] of saved.shortBends){
@@ -545,7 +552,7 @@ document.addEventListener('click',e=>{
  const save=()=>{
    try{
      const values=Object.fromEntries(ids.map(id=>[id,$(id).value]));
-     localStorage.setItem(KEY,JSON.stringify({mode:dimensionMode,values,
+     localStorage.setItem(KEY,JSON.stringify({mode:dimensionMode,values,minimumManual,
        angles:{...anglePrefs},shortBends:[...config.entries()].map(([idx,c])=>[idx,{...c}])}));
    }catch(e){}
  };
