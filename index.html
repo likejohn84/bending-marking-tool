@@ -85,18 +85,18 @@ input:focus{border-color:#ffd13f!important;box-shadow:0 0 0 1px #ffd13f55!import
 #drawingDockDone{background:#ffd13f!important;color:#171717!important}
 #drawingDockSound{color:#ffd13f!important}
 </style></head><body><main class="app"><header><h1>원마킹툴</h1><div class="creator">만든사람 이대희</div></header>
-<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>도면 치수</label><input id="dims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="200-150-50-250-50-300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="dims" aria-label="구간 구분 하이픈 입력">− 구간 구분</button><button type="button" class="native-input-done" data-done-for="dims">완료</button></div></div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
+<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>도면 치수</label><input id="dims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="200.150.50.250.50.300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="dimension-mode-row"><span>구간 구분</span><button type="button" class="dimension-mode-btn active" data-dimension-mode="dot">. 점</button><button type="button" class="dimension-mode-btn" data-dimension-mode="hyphen">− 하이픈</button></div><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="dims" aria-label="하이픈 구간 구분 입력" hidden>− 구간 구분</button><button type="button" class="native-input-done" data-done-for="dims">완료</button></div></div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
 <section class="card"><div class="head">② 짧은 구간별 밴딩 설정 <span class="num" id="countshort">0개</span></div><div id="shortcards"></div></section>
 <section class="card"><details class="segment-details"><summary class="head">③ 구간별 실제길이 <span class="segment-chevron" aria-hidden="true">⌄</span></summary><div id="summary" class="hint"></div><div id="segments" class="segment-list"></div><div class="math" style="margin-top:9px"><div class="stat"><small>차감 밑변 합계</small><strong id="totalbase">—</strong></div><div class="stat"><small>계산용 전개 길이 합계</small><strong id="developed">—</strong></div></div></details></section>
-<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div></section><div class="footer">v36 · 시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
+<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div></section><div class="footer">v37 · 시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
 <div id="angleTab" hidden>
 <section class="card"><div class="head">① 도면 치수와 지정각</div>
-<div class="field"><label>도면 치수</label><input id="adims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="300-155-300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="adims" aria-label="구간 구분 하이픈 입력">− 구간 구분</button><button type="button" class="native-input-done" data-done-for="adims">완료</button></div></div>
+<div class="field"><label>도면 치수</label><input id="adims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="300.155.300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="dimension-mode-row"><span>구간 구분</span><button type="button" class="dimension-mode-btn active" data-dimension-mode="dot">. 점</button><button type="button" class="dimension-mode-btn" data-dimension-mode="hyphen">− 하이픈</button></div><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="adims" aria-label="하이픈 구간 구분 입력" hidden>− 구간 구분</button><button type="button" class="native-input-done" data-done-for="adims">완료</button></div></div>
 <div class="line" style="margin-top:10px"><div class="field"><label>R (중심선 반경)</label><input id="aradius" type="number" value="38" step="0.1"></div><div class="field"><label>최소 직관 길이</label><input id="agrip" type="number" value="30" step="0.1"></div></div>
 <div class="hint">도면에 표시된 대각길이는 그대로 입력하세요. 밑변을 수동으로 더하거나 치수를 바꿀 필요가 없습니다.</div>
 <div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="angleInputs"></div></section>
 <section class="card"><div class="head">② 마킹 & 커팅 <span class="num">0점 기준</span></div><div id="angleMarks"></div></section>
-<div class="footer">v36 · 지정각 탭은 각 구간 치수를 이론상 교점 간 중심선 치수로 해석합니다. 벤더별 마킹 기준과 실제 직관 최소값을 검증한 뒤 작업에 사용하세요.</div>
+<div class="footer">v37 · 지정각 탭은 각 구간 치수를 이론상 교점 간 중심선 치수로 해석합니다. 벤더별 마킹 기준과 실제 직관 최소값을 검증한 뒤 작업에 사용하세요.</div>
 </div></main>
 <style>
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:11px}
@@ -107,9 +107,10 @@ input:focus{border-color:#ffd13f!important;box-shadow:0 0 0 1px #ffd13f55!import
 .angle-row input{font-size:16px;padding:8px}
 </style>
 <script>
+let dimensionMode='dot';
 const anglePrefs={};
 function angleRender(){
- const ds=document.getElementById('adims').value.trim().split(/[-,\s]+/).filter(Boolean).map(Number);
+ const ds=parseDims(document.getElementById('adims').value);
  const r=Number(document.getElementById('aradius').value),g=Number(document.getElementById('agrip').value);
  const panel=document.getElementById('angleInputs'),out=document.getElementById('angleMarks');
  const cm=Number(document.getElementById('acorrM').value),cc=Number(document.getElementById('acorrC').value);
@@ -160,7 +161,7 @@ const setback=(r,a)=>r*Math.tan(a*pi/360),arc=(r,a)=>pi*r*a/180;
 const required=(r,g,a,m)=>((m===1||m===2)?r+setback(r,a):2*setback(r,a))+g;
 const config=new Map();
 function maxA(h,r,g,m){let lo=0.00001,hi=89.999;for(let i=0;i<60;i++){const mid=(lo+hi)/2;if(h/Math.sin(mid*pi/180)>=required(r,g,mid,m))lo=mid;else hi=mid;}return lo;}
-const parseDims=v=>v.trim().split(/[-,\s]+/).filter(Boolean).map(Number);
+const parseDims=v=>v.trim().split(dimensionMode==='dot'?/[.\s,\-]+/:/[-\s,]+/).filter(Boolean).map(Number);
 function getConfig(idx,order){if(!config.has(idx))config.set(idx,{mode:1,split:.5,auto:true,angle:38});return config.get(idx);}
 function render(){
 const ds=parseDims(el('dims').value),r=+el('radius').value,g=+el('grip').value,minimum=+el('minimum').value;
@@ -303,6 +304,41 @@ document.addEventListener('click',e=>{
       try{input.setSelectionRange(convertIndex(a),convertIndex(b));}catch(e){}
     },{capture:true});
   });
+})();
+</script>
+
+<style id="dimension-modes-v37">
+.dimension-mode-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+.dimension-mode-row>span{font-size:12px;color:#bdbdbb;margin-right:auto}
+.dimension-mode-btn{background:#303234;color:#d9d9d9;border:1px solid #54575a;border-radius:8px;padding:8px 10px;font-size:13px;font-weight:750;touch-action:manipulation}
+.dimension-mode-btn.active{background:#ffd13f;color:#151515;border-color:#ffd13f}
+.native-dimension-actions .native-input-done{margin-left:auto;flex:0 0 90px}
+.native-dimension-actions .native-separator:not([hidden]){flex:1}
+</style>
+<script>
+(()=>{
+ const inputs=[document.getElementById('dims'),document.getElementById('adims')];
+ const syncMode=()=>{
+  document.querySelectorAll('[data-dimension-mode]').forEach(b=>{b.classList.toggle('active',b.dataset.dimensionMode===dimensionMode);b.setAttribute('aria-pressed',String(b.dataset.dimensionMode===dimensionMode));});
+  document.querySelectorAll('.native-separator').forEach(b=>b.hidden=dimensionMode!=='hyphen');
+  inputs.forEach(input=>input.placeholder=dimensionMode==='dot'?'예: 300.200.300':'예: 300.5-200.5-300');
+ };
+ document.querySelectorAll('[data-dimension-mode]').forEach(b=>b.addEventListener('click',()=>{
+  const next=b.dataset.dimensionMode;if(next===dimensionMode)return;
+  // Dot mode reserves '.' for separation. Never silently reinterpret decimal dimensions.
+  if(next==='dot' && inputs.some(input=>input.value.split('-').some(segment=>/^\d+\.\d+$/.test(segment.trim())))){
+   alert('소수점 치수가 포함되어 있어 점 구분 모드로 바꿀 수 없습니다. 치수를 정수로 바꾼 뒤 다시 선택해 주세요.');return;
+  }
+  inputs.forEach(input=>{
+   const pieces=dimensionMode==='dot'?input.value.split(/[.\-\s,]+/):input.value.split(/[-\s,]+/);
+   input.value=pieces.join(next==='dot'?'.':'-');
+   input.dispatchEvent(new Event('input',{bubbles:true}));
+  });
+  dimensionMode=next;syncMode();
+  if(typeof flushDrawingRender==='function')flushDrawingRender();
+  if(typeof angleRender==='function')angleRender();
+ }));
+ syncMode();
 })();
 </script>
 </body></html>
