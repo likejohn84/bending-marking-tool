@@ -53,7 +53,7 @@ section.card:last-of-type .pos{font-size:23px}
 .segment-details[open] .segment-chevron{transform:rotate(180deg)}
 @media(prefers-color-scheme:dark){
 }
-</style><style id="industrial-charcoal-yellow-v33">
+</style><style id="industrial-charcoal-yellow-v34">
 :root{color-scheme:dark!important;background:#0d0e10!important;color:#f0f0ec!important}
 html,body{background:#0d0e10!important;color:#f0f0ec!important}
 .card{background:#202225!important;border-color:#383b3e!important}
@@ -85,18 +85,18 @@ input:focus{border-color:#ffd13f!important;box-shadow:0 0 0 1px #ffd13f55!import
 #drawingDockDone{background:#ffd13f!important;color:#171717!important}
 #drawingDockSound{color:#ffd13f!important}
 </style></head><body><main class="app"><header><h1>원마킹툴</h1><div class="creator">만든사람 이대희</div></header>
-<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>도면 치수</label><input id="dims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="200-150-50-250-50-300" inputmode="none" data-drawing-input="1"></div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
+<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>도면 치수</label><input id="dims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="200-150-50-250-50-300" inputmode="none" readonly data-drawing-input="1"></div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="110" step="0.1"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 110mm 미달</div></section>
 <section class="card"><div class="head">② 짧은 구간별 밴딩 설정 <span class="num" id="countshort">0개</span></div><div id="shortcards"></div></section>
 <section class="card"><details class="segment-details"><summary class="head">③ 구간별 실제길이 <span class="segment-chevron" aria-hidden="true">⌄</span></summary><div id="summary" class="hint"></div><div id="segments" class="segment-list"></div><div class="math" style="margin-top:9px"><div class="stat"><small>차감 밑변 합계</small><strong id="totalbase">—</strong></div><div class="stat"><small>계산용 전개 길이 합계</small><strong id="developed">—</strong></div></div></details></section>
-<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div></section><div class="footer">v33 · 시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
+<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div></section><div class="footer">v34 · 시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
 <div id="angleTab" hidden>
 <section class="card"><div class="head">① 도면 치수와 지정각</div>
-<div class="field"><label>도면 치수</label><input id="adims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="300-155-300" inputmode="none" data-drawing-input="1"></div>
+<div class="field"><label>도면 치수</label><input id="adims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="300-155-300" inputmode="none" readonly data-drawing-input="1"></div>
 <div class="line" style="margin-top:10px"><div class="field"><label>R (중심선 반경)</label><input id="aradius" type="number" value="38" step="0.1"></div><div class="field"><label>최소 직관 길이</label><input id="agrip" type="number" value="30" step="0.1"></div></div>
 <div class="hint">도면에 표시된 대각길이는 그대로 입력하세요. 밑변을 수동으로 더하거나 치수를 바꿀 필요가 없습니다.</div>
 <div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="angleInputs"></div></section>
 <section class="card"><div class="head">② 마킹 & 커팅 <span class="num">0점 기준</span></div><div id="angleMarks"></div></section>
-<div class="footer">v33 · 지정각 탭은 각 구간 치수를 이론상 교점 간 중심선 치수로 해석합니다. 벤더별 마킹 기준과 실제 직관 최소값을 검증한 뒤 작업에 사용하세요.</div>
+<div class="footer">v34 · 지정각 탭은 각 구간 치수를 이론상 교점 간 중심선 치수로 해석합니다. 벤더별 마킹 기준과 실제 직관 최소값을 검증한 뒤 작업에 사용하세요.</div>
 </div></main>
 <style>
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:11px}
@@ -276,11 +276,11 @@ document.addEventListener('click',e=>{
 </div>
 <style id="drawing-dock-v19">
 .drawing-dock[hidden]{display:none!important}
-.drawing-dock{position:fixed;left:0;right:0;bottom:0;z-index:9000;padding:6px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:#d1d5db;color:#1c1c1e;box-shadow:0 -1px 3px #0002;box-sizing:border-box;max-height:62dvh;overflow:hidden;overscroll-behavior:contain;touch-action:none;-webkit-overflow-scrolling:auto}
+.drawing-dock{position:fixed;left:0;right:0;bottom:0;z-index:9000;padding:6px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:#d1d5db;color:#1c1c1e;box-shadow:0 -1px 3px #0002;box-sizing:border-box;max-height:62svh;overflow:hidden;overscroll-behavior:contain;touch-action:none;-webkit-overflow-scrolling:auto}
 .drawing-dock-bar{display:flex;align-items:center;justify-content:space-between;padding:2px 7px 8px;font-size:13px;font-weight:600}
 .drawing-dock-bar-actions{display:flex;align-items:center;gap:8px}.drawing-dock-bar #drawingDockSound{font-size:12px;color:#51545c;padding:5px 7px;border-radius:6px;background:#b7bec9}.drawing-dock-bar button{border:0;background:transparent;color:#007aff;font-size:16px;font-weight:650;padding:5px 9px}
 .drawing-dock-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-.drawing-dock-grid button{height:clamp(43px,6.7dvh,53px);border:0;border-radius:5px;background:#fff;color:#111;font-size:26px;font-weight:400;box-shadow:0 1px 0 #9da3ac;touch-action:none}
+.drawing-dock-grid button{height:clamp(43px,6.7svh,53px);border:0;border-radius:5px;background:#fff;color:#111;font-size:26px;font-weight:400;box-shadow:0 1px 0 #9da3ac;touch-action:none}
 .drawing-dock-grid button.special{background:#b7bec9}
 .drawing-dock-grid button:active{filter:brightness(.87)}
 .drawing-dock button{user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:none;-webkit-touch-callout:none}
@@ -349,6 +349,12 @@ body.drawing-dock-open{padding-bottom:365px!important}
  const close=()=>{dock.hidden=true;document.body.classList.remove('drawing-dock-open');if(active)active.blur();active=null;};
  document.querySelectorAll('input[data-drawing-input]').forEach(el=>{
   el.addEventListener('focus',()=>open(el));
+  // Prevent iOS Safari from scrolling the page while tapping a custom keypad input.
+  el.addEventListener('pointerdown',e=>{
+   if(e.pointerType==='touch'){const sx=window.scrollX,sy=window.scrollY;
+    requestAnimationFrame(()=>{if(Math.abs(window.scrollY-sy)>2)window.scrollTo(sx,sy);});
+   }
+  });
   // Only genuine user interactions may update the saved insertion position.
   // iOS fires asynchronous 'select' events during setSelectionRange: never capture those.
   el.addEventListener('pointerup',()=>{if(active===el&&!restoringCaret)capture();});
@@ -391,7 +397,9 @@ body.drawing-dock-open{padding-bottom:365px!important}
  const heldBackspaces=new Map();
  const stopBackspace=(id)=>{const held=heldBackspaces.get(id);if(!held)return;if(held.timer!==null)clearTimeout(held.timer);heldBackspaces.delete(id);};
  dock.addEventListener('pointerdown',e=>{
-  const btn=buttonAt(e.clientX,e.clientY,e.target);if(!btn)return;
+  const targetBtn=e.target.closest?.('button');
+  const btn=(targetBtn&&dock.contains(targetBtn))?targetBtn:buttonAt(e.clientX,e.clientY,e.target);
+  if(!btn)return;
   e.preventDefault();lastPointerAt=Date.now();
   // All keys, including backspace, register immediately and exactly once.
   pressKey(btn);
@@ -412,7 +420,7 @@ body.drawing-dock-open{padding-bottom:365px!important}
  dock.addEventListener('pointercancel',e=>stopBackspace(e.pointerId));
  dock.addEventListener('contextmenu',e=>e.preventDefault());
  dock.addEventListener('click',e=>{
-  const btn=buttonAt(e.clientX,e.clientY,e.target);if(!btn)return;
+  const btn=e.target.closest?.('button')||buttonAt(e.clientX,e.clientY,e.target);if(!btn)return;
   if(Date.now()-lastPointerAt<750){e.preventDefault();return;}
   pressKey(btn); // keyboard/assistive click fallback
  });
