@@ -85,25 +85,25 @@ input:focus{border-color:#ffd13f!important;box-shadow:0 0 0 1px #ffd13f55!import
 #drawingDockDone{background:#ffd13f!important;color:#171717!important}
 #drawingDockSound{color:#ffd13f!important}
 </style></head><body><main class="app"><header><h1>올마킹툴</h1><div class="creator">만든사람 이대희</div></header>
-<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button><button class="tab" data-tab="logs" type="button">③ 작업 로그</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>도면 치수</label><input id="dims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="200.150.50.250.50.300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="dimension-mode-row"><button type="button" class="dimension-mode-btn active" data-dimension-mode="dot">. 점</button><button type="button" class="dimension-mode-btn" data-dimension-mode="hyphen">− 하이픈</button><button type="button" class="native-input-done" data-done-for="dims">완료</button></div><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="dims" aria-label="하이픈 구간 구분 입력" hidden>− 구간 구분</button></div></div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="106" step="0.1" aria-label="90도 90도 최소값 수정 가능"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 68mm 미달</div></section>
+<nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button><button class="tab" data-tab="logs" type="button">③ 작업 로그</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>도면 치수</label><input id="dims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="200.150.50.250.50.300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="dimension-mode-row"><button type="button" class="dimension-mode-btn active" data-dimension-mode="dot">. 점</button><button type="button" class="dimension-mode-btn" data-dimension-mode="hyphen">− 하이픈</button><button type="button" class="native-input-clear" data-clear-for="dims">전체 지우기</button></div><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="dims" aria-label="하이픈 구간 구분 입력" hidden>− 구간 구분</button></div></div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="106" step="0.1" aria-label="90도 90도 최소값 수정 가능"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 68mm 미달</div></section>
 <section class="card"><div class="head">② 짧은 구간별 밴딩 설정 <span class="num" id="countshort">0개</span></div><div id="shortcards"></div></section>
 <section class="card"><details class="segment-details"><summary class="head">③ 구간별 실제길이 <span class="segment-chevron" aria-hidden="true">⌄</span></summary><div id="summary" class="hint"></div><div id="segments" class="segment-list"></div><div class="math" style="margin-top:9px"><div class="stat"><small>차감 밑변 합계</small><strong id="totalbase">—</strong></div><div class="stat"><small>계산용 전개 길이 합계</small><strong id="developed">—</strong></div></div></details></section>
-<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div><button type="button" class="save-result" data-save-result="original">＋ 이 결과 로그에 저장</button></section><div class="footer">v40 · 시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
+<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div><button type="button" class="save-result" data-save-result="original">＋ 이 결과 로그에 저장</button></section><div class="footer">v42 · 시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
 <div id="angleTab" hidden>
 <section class="card"><div class="head">① 도면 치수와 지정각</div>
-<div class="field"><label>도면 치수</label><input id="adims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="300.155.300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="dimension-mode-row"><button type="button" class="dimension-mode-btn active" data-dimension-mode="dot">. 점</button><button type="button" class="dimension-mode-btn" data-dimension-mode="hyphen">− 하이픈</button><button type="button" class="native-input-done" data-done-for="adims">완료</button></div><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="adims" aria-label="하이픈 구간 구분 입력" hidden>− 구간 구분</button></div></div>
+<div class="field"><label>도면 치수</label><input id="adims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="300.155.300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="dimension-mode-row"><button type="button" class="dimension-mode-btn active" data-dimension-mode="dot">. 점</button><button type="button" class="dimension-mode-btn" data-dimension-mode="hyphen">− 하이픈</button><button type="button" class="native-input-clear" data-clear-for="adims">전체 지우기</button></div><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="adims" aria-label="하이픈 구간 구분 입력" hidden>− 구간 구분</button></div></div>
 <div class="line" style="margin-top:10px"><div class="field"><label>R (중심선 반경)</label><input id="aradius" type="number" value="38" step="0.1"></div><div class="field"><label>최소 직관 길이</label><input id="agrip" type="number" value="30" step="0.1"></div></div>
 <div class="hint">도면에 표시된 대각길이는 그대로 입력하세요. 밑변을 수동으로 더하거나 치수를 바꿀 필요가 없습니다.</div>
 <div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="acorrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="acorrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="acorrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="angleInputs"></div></section>
 <section class="card"><div class="head">② 마킹 & 커팅 <span class="num">0점 기준</span></div><div id="angleMarks"></div><button type="button" class="save-result" data-save-result="angle">＋ 이 결과 로그에 저장</button></section>
-<div class="footer">v40 · 지정각 탭은 각 구간 치수를 이론상 교점 간 중심선 치수로 해석합니다. 벤더별 마킹 기준과 실제 직관 최소값을 검증한 뒤 작업에 사용하세요.</div>
+<div class="footer">v42 · 지정각 탭은 각 구간 치수를 이론상 교점 간 중심선 치수로 해석합니다. 벤더별 마킹 기준과 실제 직관 최소값을 검증한 뒤 작업에 사용하세요.</div>
 </div>
 <section id="logsTab" hidden>
  <section class="card"><div class="head">장비별 작업 로그 <span class="num" id="logCount">0건</span></div>
   <div class="log-toolbar"><input id="newFolderName" type="text" maxlength="36" placeholder="장비명 (예: ETCH 01)" aria-label="새 장비 폴더명"><button type="button" id="createLogFolder">＋ 폴더</button></div>
   <div class="log-toolbar"><select id="logFolderFilter" aria-label="폴더 선택"><option value="__all">전체 기록</option></select><button type="button" id="renameLogFolder">이름 변경</button><button type="button" id="deleteLogFolder">폴더 삭제</button></div>
   <div class="log-toolbar"><select id="moveLogFolder" aria-label="선택 기록 이동 대상"></select><button type="button" id="moveSelectedLogs">선택 이동</button></div>
-  <div class="log-toolbar"><button type="button" id="selectAllLogs">전체 선택</button><button type="button" id="exportLogs">백업 저장</button><button type="button" id="importLogs">백업 불러오기</button><input id="importLogsFile" type="file" accept="application/json,.json" hidden></div>
+  <div class="log-toolbar"><button type="button" id="selectAllLogs">전체 선택</button><button type="button" id="exportLogs">JSON 백업</button><button type="button" id="exportExcel">엑셀용 CSV</button><button type="button" id="importLogs">백업 불러오기</button><input id="importLogsFile" type="file" accept="application/json,.json" hidden></div>
   <div class="hint">기록은 이 기기의 브라우저에 보관됩니다. 앱 삭제·사이트 데이터 삭제 시 사라질 수 있으니 중요한 작업은 백업하세요.</div>
  </section>
  <section class="card"><div class="head">저장된 기록</div><div id="logList" class="log-list"></div></section>
@@ -299,10 +299,14 @@ document.addEventListener('click',e=>{
       input.focus({preventScroll:true});
     });
   });
-  document.querySelectorAll('[data-done-for]').forEach(btn=>{
+  document.querySelectorAll('[data-clear-for]').forEach(btn=>{
     btn.addEventListener('click',()=>{
-      const input=document.getElementById(btn.dataset.doneFor);
-      input.blur();
+      const input=document.getElementById(btn.dataset.clearFor);
+      if(!input)return;
+      input.value='';
+      input.dispatchEvent(new Event('input',{bubbles:true}));
+      input.focus({preventScroll:true});
+      try{input.setSelectionRange(0,0);}catch(e){}
     });
   });
   // Support pasted or hardware-keyboard space-separated dimensions.
@@ -324,7 +328,7 @@ document.addEventListener('click',e=>{
 .dimension-mode-row>span{font-size:12px;color:#bdbdbb;margin-right:auto}
 .dimension-mode-btn{background:#303234;color:#d9d9d9;border:1px solid #54575a;border-radius:8px;padding:8px 10px;font-size:13px;font-weight:750;touch-action:manipulation}
 .dimension-mode-btn.active{background:#ffd13f;color:#151515;border-color:#ffd13f}
-.dimension-mode-row .native-input-done{margin-left:0;flex:1;background:#343638;color:#f5f4ef;border:1px solid #645827;border-radius:8px;min-height:43px;font-size:14px;font-weight:750;touch-action:manipulation}
+.dimension-mode-row .native-input-clear{margin-left:0;flex:1;background:#343638;color:#f5f4ef;border:1px solid #645827;border-radius:8px;min-height:43px;font-size:14px;font-weight:750;touch-action:manipulation}
 .dimension-mode-row{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:7px;align-items:stretch}
 .dimension-mode-row .dimension-mode-btn{min-height:43px;padding:7px 3px}
 .native-dimension-actions:has(.native-separator[hidden]){display:none}
@@ -371,6 +375,8 @@ document.addEventListener('click',e=>{
 .log-values{white-space:pre-wrap;font-size:12px;line-height:1.65;color:#e7e7e3;overflow-wrap:anywhere;margin-top:8px}
 .log-item-actions{display:flex;gap:7px;margin-top:10px}.log-item-actions button{padding:7px 9px;border:1px solid #54575a;border-radius:7px;background:#303234;color:#f5f4ef;font-size:12px}
 .log-empty{padding:24px 4px;text-align:center;color:#bfc1c2;font-size:13px}
+#workSaveToast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,12px);background:#ffd13f;color:#161616;border-radius:12px;padding:12px 16px;font-size:13px;font-weight:800;z-index:9999;opacity:0;pointer-events:none;transition:opacity .16s,transform .16s;max-width:90vw;text-align:center;box-shadow:0 5px 20px #0009}
+#workSaveToast.visible{opacity:1;transform:translate(-50%,0)}
 </style>
 <script>
 (()=>{
@@ -384,6 +390,13 @@ document.addEventListener('click',e=>{
  state.records=state.records.filter(x=>x&&typeof x==='object'&&typeof x.id==='string'&&typeof x.title==='string'&&Array.isArray(x.marks)).slice(0,3000);
  let filter='__all';const selected=new Set();
  const saveState=()=>{try{localStorage.setItem(STORE,JSON.stringify(state));return true;}catch(e){alert('저장 공간이 부족하거나 브라우저 저장이 제한되어 있어 기록을 저장하지 못했습니다.');return false;}};
+ let toastTimer;
+ const showSaveToast=message=>{
+  let el=$('workSaveToast');
+  if(!el){el=document.createElement('div');el.id='workSaveToast';el.setAttribute('role','status');document.body.appendChild(el);}
+  el.textContent=message;el.classList.add('visible');clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('visible'),1800);
+ };
  const getPos=mark=>{const t=mark.querySelector('.pos');const n=t?parseFloat(t.textContent):NaN;return Number.isFinite(n)?Number(n.toFixed(2)):null;};
  const takeSnapshot=kind=>{
   const area=$(kind==='angle'?'angleMarks':'marks');
@@ -423,13 +436,13 @@ document.addEventListener('click',e=>{
   if(kind==='angle')angleRender();
   const record=takeSnapshot(kind);
   if(!record){alert('유효한 마킹·커팅 결과가 있을 때만 저장할 수 있습니다.');return;}
-  const proposed=prompt('작업 로그 이름 (도면 치수 또는 장비명)',record.dims);
-  if(proposed===null)return;
-  record.title=(proposed.trim()||record.dims).slice(0,100);
+  // One-tap save: title defaults to dimensions and can be renamed in the log tab.
+  record.title=record.dims;
   state.records.push(record);
   if(!saveState()){state.records.pop();return;}
-  renderLogs();
-  alert('작업 로그에 저장했습니다. ③ 작업 로그에서 장비 폴더로 이동할 수 있습니다.');
+  // Avoid rebuilding all log cards when the log tab is hidden.
+  if(!$('logsTab').hidden)renderLogs();
+  showSaveToast('작업 로그 저장 완료 · 이름은 로그 탭에서 변경');
  }));
  $('createLogFolder').addEventListener('click',()=>{
   const name=$('newFolderName').value.trim().slice(0,36);
@@ -477,6 +490,22 @@ document.addEventListener('click',e=>{
  $('exportLogs').addEventListener('click',()=>{
   const blob=new Blob([JSON.stringify({version:1,exportedAt:new Date().toISOString(),...state},null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='올마킹툴_작업로그_백업.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+ });
+ // Excel-compatible UTF-8 CSV. JSON remains the only restorable backup format.
+ $('exportExcel').addEventListener('click',()=>{
+  if(!state.records.length){showSaveToast('내보낼 작업 로그가 없습니다.');return;}
+  const headers=['장비 폴더','로그 이름','저장 일시','계산 종류','구분 모드','도면 치수','마킹 번호','마킹 위치 (mm)','밴딩각','커팅 길이 (mm)','R (mm)','최소물림 (mm)','90°+90° 최소 (mm)','구간당 추가 차감 (mm)','커팅 미세조정 (mm)','전체 설정 (JSON)'];
+  const rows=[headers];
+  for(const r of state.records){
+   const st=r.settings||{};
+   const marks=r.marks.length?r.marks:[{index:'',position:'',angle:''}];
+   for(const m of marks)rows.push([r.folder||'미분류',r.title||'',displayDate(r.created),r.kind==='angle'?'도면 지정각':'짧은 구간 자동계산',r.mode==='dot'?'점':'하이픈',r.dims||'',m.index,m.position,m.angle,r.cut,st.radius??st.aradius??'',st.grip??st.agrip??'',st.minimum??'',st.corrM??st.acorrM??'',st.corrC??st.acorrC??'',JSON.stringify(st)]);
+  }
+  const csvCell=v=>{let t=String(v??'');if(/^[=+@\t\r]/.test(t))t="'"+t;return '"'+t.replace(/"/g,'""')+'"';};
+  const csv='\uFEFF'+rows.map(row=>row.map(csvCell).join(',')).join('\r\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='올마킹툴_작업로그_엑셀용.csv';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+  showSaveToast('엑셀용 CSV 내보내기 완료');
  });
  $('importLogs').addEventListener('click',()=>$('importLogsFile').click());
  $('importLogsFile').addEventListener('change',async e=>{
