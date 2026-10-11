@@ -88,7 +88,7 @@ input:focus{border-color:#ffd13f!important;box-shadow:0 0 0 1px #ffd13f55!import
 <nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button><button class="tab" data-tab="logs" type="button">③ 작업 로그</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>도면 치수</label><input id="dims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="200.150.50.250.50.300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="dimension-mode-row"><button type="button" class="dimension-mode-btn active" data-dimension-mode="dot">. 점</button><button type="button" class="dimension-mode-btn" data-dimension-mode="hyphen">− 하이픈</button><button type="button" class="native-input-clear" data-clear-for="dims">전체 지우기</button></div><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="dims" aria-label="하이픈 구간 구분 입력" hidden>− 구간 구분</button></div></div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="106" step="0.1" aria-label="90도 90도 최소값 수정 가능"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 68mm 미달</div></section>
 <section class="card"><div class="head">② 짧은 구간별 밴딩 설정 <span class="num" id="countshort">0개</span></div><div id="shortcards"></div></section>
 <section class="card"><details class="segment-details"><summary class="head">③ 구간별 실제길이 <span class="segment-chevron" aria-hidden="true">⌄</span></summary><div id="summary" class="hint"></div><div id="segments" class="segment-list"></div><div class="math" style="margin-top:9px"><div class="stat"><small>차감 밑변 합계</small><strong id="totalbase">—</strong></div><div class="stat"><small>계산용 전개 길이 합계</small><strong id="developed">—</strong></div></div></details></section>
-<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div><button type="button" class="save-result" data-save-result="original">＋ 이 결과 로그에 저장</button></section><div class="footer">v43 · 시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
+<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div><button type="button" class="save-result" data-save-result="original">＋ 이 결과 로그에 저장</button></section><div class="footer">v44 · 시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
 <div id="angleTab" hidden>
 <section class="card"><div class="head">① 도면 치수와 지정각</div>
 <div class="field"><label>도면 치수</label><input id="adims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="300.155.300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="dimension-mode-row"><button type="button" class="dimension-mode-btn active" data-dimension-mode="dot">. 점</button><button type="button" class="dimension-mode-btn" data-dimension-mode="hyphen">− 하이픈</button><button type="button" class="native-input-clear" data-clear-for="adims">전체 지우기</button></div><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="adims" aria-label="하이픈 구간 구분 입력" hidden>− 구간 구분</button></div></div>
@@ -596,26 +596,52 @@ document.addEventListener('click',e=>{
 })();
 </script>
 <style id="hairline-themes-and-compact-logs-v43">
-/* Theme A: bright brushed stainless; theme B: dark brushed stainless. Visual only. */
-:root[data-metal-theme="silver"]{color-scheme:light!important;background:#bfc1c3!important;color:#181b1e!important}
-:root[data-metal-theme="silver"] html,:root[data-metal-theme="silver"] body{background:#bfc1c3!important;color:#181b1e!important}
-:root[data-metal-theme="silver"] body{background:repeating-linear-gradient(0deg,#00000009 0px,#ffffff13 1px,#00000004 2px,#ffffff0b 3px),linear-gradient(90deg,#b4b7ba,#e5e6e7 24%,#b7b9bb 65%,#d6d7d9)!important}
-:root[data-metal-theme="silver"] .card,:root[data-metal-theme="silver"] .log-item{background:repeating-linear-gradient(0deg,#ffffff1c 0px,#00000008 1px,#ffffff10 2px),linear-gradient(115deg,#d2d4d5,#aeb2b5 54%,#e2e3e3)!important;border-color:#898d91!important;box-shadow:inset 0 1px 1px #ffffff99,0 2px 5px #00000018!important}
-:root[data-metal-theme="silver"] header h1,:root[data-metal-theme="silver"] .head,:root[data-metal-theme="silver"] .log-title{color:#17191c!important}
-:root[data-metal-theme="silver"] .creator,:root[data-metal-theme="silver"] .footer,:root[data-metal-theme="silver"] .hint,:root[data-metal-theme="silver"] .note,:root[data-metal-theme="silver"] .field label,:root[data-metal-theme="silver"] .kind,:root[data-metal-theme="silver"] .log-meta,:root[data-metal-theme="silver"] .log-compact-date{color:#41454a!important}
-:root[data-metal-theme="silver"] input,:root[data-metal-theme="silver"] .short-card,:root[data-metal-theme="silver"] .stat,:root[data-metal-theme="silver"] .log-toolbar select,:root[data-metal-theme="silver"] .log-toolbar input{background:linear-gradient(#f4f5f5,#dadddf)!important;border-color:#8c9195!important;color:#151719!important}
-:root[data-metal-theme="silver"] .tab,:root[data-metal-theme="silver"] .mode,:root[data-metal-theme="silver"] .split button,:root[data-metal-theme="silver"] .dimension-mode-btn,:root[data-metal-theme="silver"] .native-input-clear,:root[data-metal-theme="silver"] .correction-stepper button,:root[data-metal-theme="silver"] .log-toolbar button,:root[data-metal-theme="silver"] .log-item-actions button{background:linear-gradient(#f2f3f3,#bfc2c4)!important;color:#17191b!important;border-color:#8d9295!important}
-:root[data-metal-theme="silver"] .tab.active,:root[data-metal-theme="silver"] .mode.active,:root[data-metal-theme="silver"] .split button.active,:root[data-metal-theme="silver"] .dimension-mode-btn.active{background:linear-gradient(#ffe98b,#f7c744)!important;color:#181818!important;border-color:#bd9630!important}
-:root[data-metal-theme="silver"] .pos,:root[data-metal-theme="silver"] .mainval,:root[data-metal-theme="silver"] .anglebox{color:#6b4b04!important}
-:root[data-metal-theme="silver"] .num,:root[data-metal-theme="silver"] .pill{background:#a4a8ac!important;color:#26292b!important}
-:root[data-metal-theme="silver"] .cut{background:#e2d3a5!important;border-color:#b9a36b!important}
-:root[data-metal-theme="silver"] .save-result{background:linear-gradient(#ffe989,#efba36)!important;color:#171717!important}
-:root[data-metal-theme="dark"]{background:#111315!important}
-:root[data-metal-theme="dark"] html,:root[data-metal-theme="dark"] body{background:#111315!important}
-:root[data-metal-theme="dark"] body{background:repeating-linear-gradient(0deg,#ffffff06 0px,#00000009 1px,#ffffff03 2px),linear-gradient(90deg,#111315,#303338 28%,#17191c 75%,#26292c)!important}
-:root[data-metal-theme="dark"] .card,:root[data-metal-theme="dark"] .log-item{background:repeating-linear-gradient(0deg,#ffffff0a 0px,#00000009 1px,#ffffff06 2px),linear-gradient(115deg,#2c3033,#181a1c 65%,#303337)!important;border-color:#5a5e62!important;box-shadow:inset 0 1px 1px #ffffff1b,0 2px 7px #0005!important}
-:root[data-metal-theme="dark"] .tab:not(.active),:root[data-metal-theme="dark"] .mode:not(.active),:root[data-metal-theme="dark"] .log-toolbar button{background:linear-gradient(#3b3e42,#1c1e21)!important}
-:root[data-metal-theme="dark"] .save-result{background:linear-gradient(#ffe486,#d6a02d)!important;color:#171717!important}
+/* v44: subtle, low-contrast hairline backdrop; flat, accessible controls. */
+:root[data-metal-theme="silver"],:root[data-metal-theme="clean-light"]{color-scheme:light!important;color:#1d2022!important}
+:root[data-metal-theme="silver"] body,:root[data-metal-theme="clean-light"] body{color:#1d2022!important}
+/* Ultra-fine hairline only on the app canvas, never on controls. */
+:root[data-metal-theme="silver"] body{background:repeating-linear-gradient(0deg,rgba(25,29,31,.018) 0px,rgba(255,255,255,.025) 1px,transparent 2px,transparent 5px),#d9d8d4!important}
+:root[data-metal-theme="dark"] body{background:repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0px,transparent 1px,transparent 5px),#252729!important}
+:root[data-metal-theme="clean-light"] body{background:#f3f3f1!important}
+:root[data-metal-theme="clean-dark"] body{background:#17191b!important}
+:root[data-metal-theme="silver"] .card,:root[data-metal-theme="silver"] .log-item{background:#e8e7e3!important;border-color:#b9bab8!important}
+:root[data-metal-theme="clean-light"] .card,:root[data-metal-theme="clean-light"] .log-item{background:#fff!important;border-color:#dedfdf!important}
+:root[data-metal-theme="dark"] .card,:root[data-metal-theme="dark"] .log-item{background:#303235!important;border-color:#494b4d!important}
+:root[data-metal-theme="clean-dark"] .card,:root[data-metal-theme="clean-dark"] .log-item{background:#242628!important;border-color:#383b3e!important}
+:root[data-metal-theme="silver"] .short-card,:root[data-metal-theme="silver"] .stat{background:#efeeeb!important;border-color:#c4c5c3!important}
+:root[data-metal-theme="clean-light"] .short-card,:root[data-metal-theme="clean-light"] .stat{background:#f8f8f7!important;border-color:#e2e3e3!important}
+:root[data-metal-theme="dark"] .short-card,:root[data-metal-theme="dark"] .stat{background:#282a2c!important;border-color:#515356!important}
+:root[data-metal-theme="clean-dark"] .short-card,:root[data-metal-theme="clean-dark"] .stat{background:#1c1e20!important;border-color:#3e4144!important}
+:root[data-metal-theme="silver"] header h1,:root[data-metal-theme="silver"] .head,:root[data-metal-theme="silver"] .log-title,:root[data-metal-theme="clean-light"] header h1,:root[data-metal-theme="clean-light"] .head,:root[data-metal-theme="clean-light"] .log-title{color:#202224!important}
+:root[data-metal-theme="silver"] .creator,:root[data-metal-theme="silver"] .footer,:root[data-metal-theme="silver"] .hint,:root[data-metal-theme="silver"] .note,:root[data-metal-theme="silver"] .field label,:root[data-metal-theme="silver"] .kind,:root[data-metal-theme="silver"] small,:root[data-metal-theme="silver"] .log-meta,:root[data-metal-theme="silver"] .log-compact-date,
+:root[data-metal-theme="clean-light"] .creator,:root[data-metal-theme="clean-light"] .footer,:root[data-metal-theme="clean-light"] .hint,:root[data-metal-theme="clean-light"] .note,:root[data-metal-theme="clean-light"] .field label,:root[data-metal-theme="clean-light"] .kind,:root[data-metal-theme="clean-light"] small,:root[data-metal-theme="clean-light"] .log-meta,:root[data-metal-theme="clean-light"] .log-compact-date{color:#65686a!important}
+:root[data-metal-theme="silver"] input,:root[data-metal-theme="silver"] select,:root[data-metal-theme="clean-light"] input,:root[data-metal-theme="clean-light"] select{background:#fafaf9!important;color:#1d2022!important;border-color:#bfc1c0!important}
+:root[data-metal-theme="silver"] .tab,:root[data-metal-theme="silver"] .mode,:root[data-metal-theme="silver"] .split button,:root[data-metal-theme="silver"] .dimension-mode-btn,:root[data-metal-theme="silver"] .native-input-clear,:root[data-metal-theme="silver"] .correction-stepper button,:root[data-metal-theme="silver"] .log-toolbar button,:root[data-metal-theme="silver"] .log-item-actions button{background:#e5e5e2!important;color:#252729!important;border-color:#bfc1bf!important}
+:root[data-metal-theme="clean-light"] .tab,:root[data-metal-theme="clean-light"] .mode,:root[data-metal-theme="clean-light"] .split button,:root[data-metal-theme="clean-light"] .dimension-mode-btn,:root[data-metal-theme="clean-light"] .native-input-clear,:root[data-metal-theme="clean-light"] .correction-stepper button,:root[data-metal-theme="clean-light"] .log-toolbar button,:root[data-metal-theme="clean-light"] .log-item-actions button{background:#f3f4f5!important;color:#252729!important;border-color:#dedfe1!important}
+:root[data-metal-theme="dark"] .tab:not(.active),:root[data-metal-theme="dark"] .mode:not(.active),:root[data-metal-theme="dark"] .split button:not(.active),:root[data-metal-theme="dark"] .dimension-mode-btn:not(.active),:root[data-metal-theme="dark"] .correction-stepper button,:root[data-metal-theme="dark"] .log-toolbar button{background:#393b3d!important;border-color:#57595b!important}
+:root[data-metal-theme="clean-dark"] .tab:not(.active),:root[data-metal-theme="clean-dark"] .mode:not(.active),:root[data-metal-theme="clean-dark"] .split button:not(.active),:root[data-metal-theme="clean-dark"] .dimension-mode-btn:not(.active),:root[data-metal-theme="clean-dark"] .correction-stepper button,:root[data-metal-theme="clean-dark"] .log-toolbar button{background:#303235!important;border-color:#484b4e!important}
+/* One restrained amber accent for both hairline modes; blue for both clean modes. */
+:root[data-metal-theme="silver"] .tab.active,:root[data-metal-theme="silver"] .mode.active,:root[data-metal-theme="silver"] .split button.active,:root[data-metal-theme="silver"] .dimension-mode-btn.active,
+:root[data-metal-theme="dark"] .tab.active,:root[data-metal-theme="dark"] .mode.active,:root[data-metal-theme="dark"] .split button.active,:root[data-metal-theme="dark"] .dimension-mode-btn.active{background:#e9bf6e!important;border-color:#d7ac5c!important;color:#222!important}
+:root[data-metal-theme="clean-light"] .tab.active,:root[data-metal-theme="clean-light"] .mode.active,:root[data-metal-theme="clean-light"] .split button.active,:root[data-metal-theme="clean-light"] .dimension-mode-btn.active,
+:root[data-metal-theme="clean-dark"] .tab.active,:root[data-metal-theme="clean-dark"] .mode.active,:root[data-metal-theme="clean-dark"] .split button.active,:root[data-metal-theme="clean-dark"] .dimension-mode-btn.active{background:#3579d6!important;border-color:#3579d6!important;color:#fff!important}
+:root[data-metal-theme="silver"] .save-result,:root[data-metal-theme="dark"] .save-result{background:#e9bf6e!important;color:#242424!important;border-color:#d7ac5c!important}
+:root[data-metal-theme="clean-light"] .save-result,:root[data-metal-theme="clean-dark"] .save-result{background:#3579d6!important;color:#fff!important;border-color:#3579d6!important}
+:root[data-metal-theme="silver"] .pos,:root[data-metal-theme="silver"] .mainval,:root[data-metal-theme="silver"] .anglebox{color:#815e23!important}
+:root[data-metal-theme="clean-light"] .pos,:root[data-metal-theme="clean-light"] .mainval,:root[data-metal-theme="clean-light"] .anglebox,:root[data-metal-theme="clean-dark"] .pos,:root[data-metal-theme="clean-dark"] .mainval,:root[data-metal-theme="clean-dark"] .anglebox{color:#3579d6!important}
+:root[data-metal-theme="silver"] .num,:root[data-metal-theme="silver"] .pill,:root[data-metal-theme="clean-light"] .num,:root[data-metal-theme="clean-light"] .pill{background:#e0e1df!important;color:#303234!important}
+:root[data-metal-theme="silver"] .cut,:root[data-metal-theme="clean-light"] .cut{background:#f1eee5!important;border-color:#d5c9ab!important}
+:root[data-metal-theme="clean-light"] .cut{background:#eaf1fc!important;border-color:#cbd9f2!important}
+:root[data-metal-theme="silver"] .cut .pos{color:#815e23!important}
+:root[data-metal-theme="clean-light"] .cut .pos,:root[data-metal-theme="clean-dark"] .cut .pos{color:#3579d6!important}
+:root[data-metal-theme="silver"] .warning,:root[data-metal-theme="clean-light"] .warning{background:#fbf1db!important;color:#6b501b!important;border-color:#e5d3a5!important}
+:root[data-metal-theme="silver"] .good,:root[data-metal-theme="clean-light"] .good{background:#e3f2e9!important;color:#286345!important;border-color:#acd0ba!important}
+/* Visual-only refinements: flat surfaces, quiet borders, readable figures. */
+:root[data-metal-theme] .card,:root[data-metal-theme] .log-item,:root[data-metal-theme] button,:root[data-metal-theme] input,:root[data-metal-theme] select{box-shadow:none!important;background-image:none!important}
+:root[data-metal-theme] .card{border-width:1px!important}
+:root[data-metal-theme] .tab,:root[data-metal-theme] .mode,:root[data-metal-theme] .save-result{font-weight:650!important}
+:root[data-metal-theme] input{font-variant-numeric:tabular-nums!important}
+:root[data-metal-theme] header h1{font-weight:750!important;letter-spacing:-.055em!important;text-shadow:none!important}
 #themeToggleTitle{cursor:default;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 /* Compact log: one row per spool; tap row to expand without changing saved data. */
 #logsTab .log-list{gap:3px!important}
@@ -631,15 +657,16 @@ document.addEventListener('click',e=>{
 #logsTab .log-detail[open] .log-expand{transform:rotate(180deg)}
 #logsTab .log-expanded{border-top:1px solid #7775;padding:8px 2px 10px}
 #logsTab .log-values{margin-top:7px}
-</style><script id="hairline-toggle-v43">
+</style><script id="hairline-toggle-v44">
 (()=>{
- const KEY='omt-metal-theme-v43';
+ const KEY='omt-metal-theme-v44',OLD_KEY='omt-metal-theme-v43';
+ const THEMES=['silver','dark','clean-light','clean-dark'];
  const title=document.getElementById('themeToggleTitle');
  let theme='silver';
- try{if(localStorage.getItem(KEY)==='dark')theme='dark';}catch(e){}
+ try{const saved=localStorage.getItem(KEY)||localStorage.getItem(OLD_KEY);if(THEMES.includes(saved))theme=saved;}catch(e){}
  document.documentElement.dataset.metalTheme=theme;
  title.addEventListener('click',()=>{
-  theme=theme==='silver'?'dark':'silver';
+  theme=THEMES[(THEMES.indexOf(theme)+1)%THEMES.length];
   document.documentElement.dataset.metalTheme=theme;
   try{localStorage.setItem(KEY,theme);}catch(e){}
  });
