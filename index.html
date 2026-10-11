@@ -88,7 +88,7 @@ input:focus{border-color:#ffd13f!important;box-shadow:0 0 0 1px #ffd13f55!import
 <nav class="tabs"><button class="tab active" data-tab="original" type="button">① 짧은 구간 자동계산</button><button class="tab" data-tab="angle" type="button">② 도면 지정각</button><button class="tab" data-tab="logs" type="button">③ 작업 로그</button></nav><div id="originalTab"><section class="card"><div class="head">① 도면 입력 <span class="num">mm</span></div><div class="field"><label>도면 치수</label><input id="dims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="200.150.50.250.50.300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="dimension-mode-row"><button type="button" class="dimension-mode-btn active" data-dimension-mode="dot">. 점</button><button type="button" class="dimension-mode-btn" data-dimension-mode="hyphen">− 하이픈</button><button type="button" class="native-input-clear" data-clear-for="dims">전체 지우기</button></div><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="dims" aria-label="하이픈 구간 구분 입력" hidden>− 구간 구분</button></div></div><div class="line" style="margin-top:12px"><div class="field"><label>R (중심선 반경)</label><input id="radius" type="number" value="38" step="0.1"></div><div class="field"><label>추가 최소물림</label><input id="grip" type="number" value="30" step="0.1"></div><div class="field"><label>90°+90° 최소</label><input id="minimum" type="number" value="106" step="0.1" aria-label="90도 90도 최소값 수정 가능"></div></div><div class="line" style="margin-top:9px"><div class="field"><label>구간당 추가 차감 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrM" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrM" type="number" value="2" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrM" data-delta="0.5" aria-label="0.5 증가">+</button></div></div><div class="field"><label>커팅 별도 미세조정 (mm)</label><div class="correction-stepper"><button type="button" data-step-target="corrC" data-delta="-0.5" aria-label="0.5 감소">−</button><input id="corrC" type="number" value="0" step="0.5" inputmode="decimal"><button type="button" data-step-target="corrC" data-delta="0.5" aria-label="0.5 증가">+</button></div></div></div><div class="hint">+2 입력 시 각 구간의 기존 차감량에 2mm를 추가합니다.</div><div id="warn" class="warning">⚠ 50mm 구간 감지 · 최소 68mm 미달</div></section>
 <section class="card"><div class="head">② 짧은 구간별 밴딩 설정 <span class="num" id="countshort">0개</span></div><div id="shortcards"></div></section>
 <section class="card"><details class="segment-details"><summary class="head">③ 구간별 실제길이 <span class="segment-chevron" aria-hidden="true">⌄</span></summary><div id="summary" class="hint"></div><div id="segments" class="segment-list"></div><div class="math" style="margin-top:9px"><div class="stat"><small>차감 밑변 합계</small><strong id="totalbase">—</strong></div><div class="stat"><small>계산용 전개 길이 합계</small><strong id="developed">—</strong></div></div></details></section>
-<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div><button type="button" class="save-result" data-save-result="original">＋ 이 결과 로그에 저장</button></section><div class="footer">v44 · 시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
+<section class="card"><div class="head">④ 마킹 & 커팅 <span class="num">파이프 끝 0점 기준</span></div><div id="marks"></div><button type="button" class="save-result" data-save-result="original">＋ 이 결과 로그에 저장</button></section><div class="footer">v45 · 시제품 · 짧은 구간을 각각 설정하며 전체 누적 마킹을 재계산합니다. 실제 작업 전에는 벤더별 마킹 기준과 각도별 가공 오차를 검증하세요. 계산 과정의 중간 반올림을 최소화합니다.</div></div>
 <div id="angleTab" hidden>
 <section class="card"><div class="head">① 도면 치수와 지정각</div>
 <div class="field"><label>도면 치수</label><input id="adims" type="text" aria-label="도면 치수" autocomplete="off" autocorrect="off" spellcheck="false" value="300.155.300" inputmode="decimal" enterkeyhint="done" data-drawing-input="1"><div class="dimension-mode-row"><button type="button" class="dimension-mode-btn active" data-dimension-mode="dot">. 점</button><button type="button" class="dimension-mode-btn" data-dimension-mode="hyphen">− 하이픈</button><button type="button" class="native-input-clear" data-clear-for="adims">전체 지우기</button></div><div class="native-dimension-actions"><button type="button" class="native-separator" data-separator-for="adims" aria-label="하이픈 구간 구분 입력" hidden>− 구간 구분</button></div></div>
@@ -657,13 +657,79 @@ document.addEventListener('click',e=>{
 #logsTab .log-detail[open] .log-expand{transform:rotate(180deg)}
 #logsTab .log-expanded{border-top:1px solid #7775;padding:8px 2px 10px}
 #logsTab .log-values{margin-top:7px}
-</style><script id="hairline-toggle-v44">
+</style>
+<style id="midcentury-swiss-offwhite-green-v45">
+/* Fifth theme: restrained Swiss industrial design, off-white + deep green.
+   Visual overrides only; preserve all calculation, logs, input and backup logic. */
+:root[data-metal-theme="swiss-green"]{color-scheme:light!important;color:#25332b!important;background:#f0efe9!important}
+:root[data-metal-theme="swiss-green"] body{background:#f0efe9!important;color:#25332b!important}
+:root[data-metal-theme="swiss-green"] .card,
+:root[data-metal-theme="swiss-green"] .log-item{background:#f7f7f3!important;border-color:#c8cec6!important;border-radius:8px!important}
+:root[data-metal-theme="swiss-green"] .short-card,
+:root[data-metal-theme="swiss-green"] .stat{background:#e7eae3!important;border-color:#c8cec6!important;border-radius:6px!important}
+:root[data-metal-theme="swiss-green"] header h1,
+:root[data-metal-theme="swiss-green"] .head,
+:root[data-metal-theme="swiss-green"] .log-title{color:#273a30!important}
+:root[data-metal-theme="swiss-green"] header h1{font-weight:750!important;letter-spacing:-.06em!important;text-shadow:none!important}
+:root[data-metal-theme="swiss-green"] .creator,
+:root[data-metal-theme="swiss-green"] .sub,
+:root[data-metal-theme="swiss-green"] .muted,
+:root[data-metal-theme="swiss-green"] .footer,
+:root[data-metal-theme="swiss-green"] .hint,
+:root[data-metal-theme="swiss-green"] .note,
+:root[data-metal-theme="swiss-green"] .field label,
+:root[data-metal-theme="swiss-green"] .kind,
+:root[data-metal-theme="swiss-green"] small,
+:root[data-metal-theme="swiss-green"] .log-meta,
+:root[data-metal-theme="swiss-green"] .log-compact-date{color:#68756b!important}
+:root[data-metal-theme="swiss-green"] input,
+:root[data-metal-theme="swiss-green"] select,
+:root[data-metal-theme="swiss-green"] textarea{background:#fff!important;color:#24352b!important;border-color:#bcc5bc!important;border-radius:5px!important}
+:root[data-metal-theme="swiss-green"] input:focus{border-color:#466a56!important;box-shadow:0 0 0 1px #466a5644!important}
+:root[data-metal-theme="swiss-green"] .tab,
+:root[data-metal-theme="swiss-green"] .mode,
+:root[data-metal-theme="swiss-green"] .split button,
+:root[data-metal-theme="swiss-green"] .dimension-mode-btn,
+:root[data-metal-theme="swiss-green"] .native-input-clear,
+:root[data-metal-theme="swiss-green"] .native-separator,
+:root[data-metal-theme="swiss-green"] .correction-stepper button,
+:root[data-metal-theme="swiss-green"] .log-toolbar button,
+:root[data-metal-theme="swiss-green"] .log-item-actions button{background:#e1e5de!important;color:#35463a!important;border-color:#c4cbc1!important;border-radius:5px!important}
+:root[data-metal-theme="swiss-green"] .tab.active,
+:root[data-metal-theme="swiss-green"] .mode.active,
+:root[data-metal-theme="swiss-green"] .split button.active,
+:root[data-metal-theme="swiss-green"] .dimension-mode-btn.active{background:#2c4437!important;border-color:#2c4437!important;color:#fff!important}
+:root[data-metal-theme="swiss-green"] .save-result{background:#2c4437!important;border-color:#2c4437!important;color:#fff!important;border-radius:5px!important}
+:root[data-metal-theme="swiss-green"] .num,
+:root[data-metal-theme="swiss-green"] .pill{background:#dfe5dc!important;color:#385442!important;border-radius:4px!important}
+:root[data-metal-theme="swiss-green"] .short-top .num{background:#d4dfd4!important;color:#31513b!important}
+:root[data-metal-theme="swiss-green"] .pos,
+:root[data-metal-theme="swiss-green"] .mainval,
+:root[data-metal-theme="swiss-green"] .anglebox,
+:root[data-metal-theme="swiss-green"] .segment-chevron,
+:root[data-metal-theme="swiss-green"] .log-expand{color:#315f45!important}
+:root[data-metal-theme="swiss-green"] .mark,
+:root[data-metal-theme="swiss-green"] .segline{border-bottom-color:#d0d6ce!important}
+:root[data-metal-theme="swiss-green"] .cut{background:#e2e9df!important;border-color:#c3d1c2!important;border-radius:5px!important}
+:root[data-metal-theme="swiss-green"] .cut .pill{background:#2c4437!important;color:#fff!important}
+:root[data-metal-theme="swiss-green"] .cut .pos{color:#315f45!important}
+:root[data-metal-theme="swiss-green"] .warning{background:#f5ecd7!important;color:#6b5528!important;border-color:#e0d0aa!important}
+:root[data-metal-theme="swiss-green"] .good{background:#e2efe6!important;color:#315a40!important;border-color:#bbd2c0!important}
+:root[data-metal-theme="swiss-green"] .card,
+:root[data-metal-theme="swiss-green"] .log-item,
+:root[data-metal-theme="swiss-green"] button,
+:root[data-metal-theme="swiss-green"] input,
+:root[data-metal-theme="swiss-green"] select{box-shadow:none!important;background-image:none!important}
+:root[data-metal-theme="swiss-green"] .card{border-width:1px!important}
+:root[data-metal-theme="swiss-green"] input{font-variant-numeric:tabular-nums!important}
+</style>
+<script id="hairline-toggle-v45">
 (()=>{
- const KEY='omt-metal-theme-v44',OLD_KEY='omt-metal-theme-v43';
- const THEMES=['silver','dark','clean-light','clean-dark'];
+ const KEY='omt-metal-theme-v45',OLD_KEY='omt-metal-theme-v44',OLDER_KEY='omt-metal-theme-v43';
+ const THEMES=['silver','dark','clean-light','clean-dark','swiss-green'];
  const title=document.getElementById('themeToggleTitle');
  let theme='silver';
- try{const saved=localStorage.getItem(KEY)||localStorage.getItem(OLD_KEY);if(THEMES.includes(saved))theme=saved;}catch(e){}
+ try{const saved=localStorage.getItem(KEY)||localStorage.getItem(OLD_KEY)||localStorage.getItem(OLDER_KEY);if(THEMES.includes(saved))theme=saved;}catch(e){}
  document.documentElement.dataset.metalTheme=theme;
  title.addEventListener('click',()=>{
   theme=THEMES[(THEMES.indexOf(theme)+1)%THEMES.length];
