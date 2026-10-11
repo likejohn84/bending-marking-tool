@@ -178,8 +178,8 @@ function getConfig(idx,order){if(!config.has(idx))config.set(idx,{mode:1,split:.
 function render(){
 const ds=parseDims(el('dims').value),r=+el('radius').value,g=+el('grip').value,minimum=+el('minimum').value;
 const cm=+el('corrM').value,cc=+el('corrC').value;
-const valid=ds.length>=3&&ds.every(n=>Number.isFinite(n)&&n>0)&&r>0&&g>=0&&minimum>0&&Number.isFinite(cm)&&Number.isFinite(cc);
-if(!valid){el('warn').textContent='도면을 3개 이상 구간으로 입력하고 R·물림·최소값을 확인해 주세요.';el('shortcards').innerHTML='';el('marks').innerHTML='';el('segments').innerHTML='';return;}
+const valid=ds.length>=2&&ds.every(n=>Number.isFinite(n)&&n>0)&&r>0&&g>=0&&minimum>0&&Number.isFinite(cm)&&Number.isFinite(cc);
+if(!valid){el('warn').textContent='도면을 2개 이상 구간으로 입력하고 R·물림·최소값을 확인해 주세요.';el('shortcards').innerHTML='';el('marks').innerHTML='';el('segments').innerHTML='';return;}
 const shortIndices=ds.map((n,i)=>i>0&&i<ds.length-1&&n<minimum?i:-1).filter(i=>i>=0);
 const validSet=new Set(shortIndices);for(const idx of config.keys())if(!validSet.has(idx))config.delete(idx);
 el('countshort').textContent=shortIndices.length+'개';el('warn').className=shortIndices.length?'warning':'warning good';el('warn').textContent=shortIndices.length?`⚠ 최소 ${fmt(minimum)}mm 미달: ${shortIndices.map(i=>`${i+1}번째 구간 ${fmt(ds[i])}mm`).join(', ')}`:'✓ 최소값 미달 구간 없음';
